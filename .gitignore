@@ -1,0 +1,8 @@
+# Arquivos de sistema e ambiente
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos e caches de IDE
+.gemini/
+*.tmp

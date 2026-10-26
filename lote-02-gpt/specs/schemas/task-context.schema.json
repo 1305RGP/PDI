@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pdi.local/schemas/task-context.schema.json",
+  "title": "Contexto operacional mínimo de tarefa",
+  "type": "object",
+  "required": ["task_id", "objective", "apdf_phase", "approved_baseline", "allowed_actions", "prohibited_actions", "acceptance_criteria", "dependencies", "execution_state", "evidence_refs"],
+  "properties": {
+    "task_id": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "apdf_phase": {"type": "string", "minLength": 1},
+    "approved_baseline": {"type": "string", "minLength": 1},
+    "allowed_actions": {"type": "array", "items": {"type": "string"}},
+    "prohibited_actions": {"type": "array", "items": {"type": "string"}},
+    "acceptance_criteria": {"type": "array", "items": {"type": "string"}},
+    "dependencies": {"type": "array", "items": {"type": "string"}},
+    "execution_state": {"enum": ["READY", "RUNNING", "VERIFYING", "COMPLETED", "BLOCKED", "PAUSED", "FAILED", "CANCELLED"]},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

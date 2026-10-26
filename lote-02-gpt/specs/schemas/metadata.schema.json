@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pdi.local/schemas/metadata.schema.json",
+  "title": "Metadados de artefato controlado",
+  "type": "object",
+  "required": ["id", "title", "type", "version", "state", "owner", "scope", "date", "dependencies", "approval_history"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "type": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "minLength": 1},
+    "state": {"enum": ["DRAFT", "IN_REVIEW", "PENDING_APPROVAL", "CHANGES_REQUESTED", "APPROVED", "REJECTED", "SUPERSEDED", "OBSOLETE"]},
+    "owner": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "minLength": 1},
+    "date": {"type": "string", "format": "date"},
+    "dependencies": {"type": "array", "items": {"type": "string"}},
+    "approval_history": {"type": "array", "items": {"$ref": "approval.schema.json"}}
+  },
+  "additionalProperties": true
+}

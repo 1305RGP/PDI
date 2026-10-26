@@ -1,0 +1,1 @@
+{"task_id":"TASK-EX-001","objective":"Exemplo de contexto estruturado","apdf_phase":"Execution Planning","approved_baseline":"PDI v0.2.0","allowed_actions":["Criar artefato isolado"],"prohibited_actions":["Alterar baseline sem aprovação"],"acceptance_criteria":["CA-03-01"],"dependencies":["CTR-03"],"execution_state":"READY","evidence_refs":[]}
