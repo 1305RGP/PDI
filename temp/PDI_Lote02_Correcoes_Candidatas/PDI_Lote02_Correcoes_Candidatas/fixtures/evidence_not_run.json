@@ -1,0 +1,12 @@
+{
+  "requirement_ref": "CTR-02#CA-02-04",
+  "test_id": "TC-CTR-02-04-01",
+  "evaluated_version": "PDI-0.2.0",
+  "environment": "Não executado",
+  "result": "NOT_RUN",
+  "logs": [
+    "Pendente de runner aprovado"
+  ],
+  "known_failures": [],
+  "reviewer": "Não designado"
+}
