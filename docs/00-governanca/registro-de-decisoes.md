@@ -2,13 +2,13 @@
 
 **ID:** GOV-DEC-001  
 **Tipo:** Registro de Decisões  
-**Versão:** 0.2.1  
-**Estado:** APPROVED — registro ativo e controlado.  
+**Versão:** 0.3.0  
+**Estado:** APPROVED — registro ativo e controlado; atualizado por `DEC-011` (2026-10-27).  
 **Proprietário:** Proprietário humano do Núcleo (designação nominal pendente conforme GOV-AUTH-001)  
 **Escopo:** Decisões transversais do Núcleo Central de Engenharia.  
 **Data:** 2026-10-27  
 **Dependências:** `docs/00-governanca/norma-central.md`, `docs/00-governanca/hierarquia-documental.md`, `docs/01-metodologia/APDF_V01.md`.  
-**Histórico de aprovação:** v0.1.0 — criado na baseline conceitual com DEC-001 a DEC-006 (2026-10-26). v0.2.0 — incorpora DEC-007, que designa o `APDF_V01` como padrão metodológico do Núcleo (2026-10-26). v0.2.1 — incorpora DEC-008 (critérios de G0), DEC-009 (homologação de G0, patch APDF_V01 v1.0.1 e autorização da Fase B) e DEC-010 (fixação do escopo do patch v1.0.1 e diferimento de cinco correções para a v1.1.0) (2026-10-27).  
+**Histórico de aprovação:** v0.1.0 — criado na baseline conceitual com DEC-001 a DEC-006 (2026-10-26). v0.2.0 — incorpora DEC-007, que designa o `APDF_V01` como padrão metodológico do Núcleo (2026-10-26). v0.2.1 — incorpora DEC-008 (critérios de G0), DEC-009 (homologação de G0, patch APDF_V01 v1.0.1 e autorização da Fase B) e DEC-010 (fixação do escopo do patch v1.0.1 e diferimento de cinco correções para a v1.1.0) (2026-10-27). v0.3.0 — incorpora DEC-011, que promove o `APDF_V01` para a versão 1.1.0 e eleva a baseline documental para v0.3.0, e os três adendos de errata de DEC-009 e DEC-010 (`ERR-DEC-009-010-001`) (2026-10-27).  
 
 | ID | Decisão | Estado | Observações |
 |---|---|---|---|
@@ -22,6 +22,7 @@
 | DEC-008 | Estabelecimento formal dos critérios de aceite do Gate G0 (CA-G0-01 a CA-G0-06). | APPROVED | Deliberação formal do Proprietário Humano sanando a proveniência dos critérios de revisão da materialização documental (achado R-04). |
 | DEC-009 | Homologação formal do Gate G0, adoção do patch APDF_V01 v1.0.1 (baseline v0.2.1) e autorização para início da Fase B. | APPROVED | Deliberação formal do Proprietário Humano com base nos pareceres de governança e auditoria crítica. Baseline v0.2.1 homologada; Fase B autorizada. Escopo do patch v1.0.1 revisto por DEC-010. |
 | DEC-010 | Fixação do escopo do patch APDF_V01 v1.0.1 (C-02, C-03, C-04, C-08, C-09, C-10) e diferimento de C-01, C-05, C-06, C-07 e C-11 para a v1.1.0. | APPROVED | Instrução direta do Proprietário Humano (2026-10-27) após revisão crítica. Não revoga a homologação do G0 em DEC-009; restringe o conteúdo material do patch. Redação pendente de confirmação literal do proprietário. |
+| DEC-011 | Promoção do APDF_V01 para a versão 1.1.0 e elevação da baseline documental para v0.3.0. | APPROVED | Instrução direta do Proprietário Humano (2026-10-27). Incorpora `C-01`, `C-05`, `C-06`, `C-07` e `C-11` (diferidas por DEC-010) e `C-12`/`C-13`; adota o modelo (a) de `REABERTO` e a alternativa (a) de `PROP-04`; encerra `L-08` e `L-10`. Redação pendente de confirmação literal do proprietário. |
 
 ## Detalhamento das Decisões
 
@@ -96,6 +97,24 @@
 - **Data:** 2026-10-27.
 - **Artefatos afetados:** `README.md`, `CHANGELOG.md`, `MANIFESTO-SHA256.md`, `docs/00-governanca/registro-de-decisoes.md`, `docs/01-metodologia/APDF_V01.md`.
 - **Estado:** `APPROVED`.
+- **Adendo (errata de 2026-10-27, `ERR-DEC-009-010-001`):** O campo Contexto desta
+  decisão descreve o conteúdo da cópia candidata examinada naquele momento, não o
+  conteúdo final da versão promovida. Por `DEC-010`, o escopo material do patch
+  `1.0.1` foi reduzido às correções `C-02`, `C-03`, `C-04`, `C-08`, `C-09` e `C-10`;
+  `C-01` (`dependencies` em §8.4), `C-05` (`justification` em §7.1), `C-06` (§15.5),
+  `C-07` (§11.2/§11.4) e `C-11` (semântica de `REABERTO` em §7.3) foram diferidas
+  para a `1.1.0` e incorporadas por `DEC-011`. Permanecem válidos e inalterados: a
+  homologação do Gate G0, a promoção da `1.0.1`, a elevação da baseline a `v0.2.1` e
+  a autorização da Fase B. Este adendo não reescreve o Contexto original, que fica
+  preservado como registro do que foi examinado antes de `DEC-010`.
+- **Adendo (errata de 2026-10-27, `ERR-DEC-009-010-001`):** A afirmação de
+  "conformidade integral dos 27 artefatos" não era sustentada pelas evidências
+  disponíveis na data desta decisão, conforme registrado em `DEC-010`. A verificação
+  integral foi refeita após a reconciliação do patch e, no commit
+  `bc457538209491d52fe128d5184117d547906d3a`, o `MANIFESTO-SHA256.md` confere
+  27/27 entradas, sem divergência e sem ausência. Os dois fatos coexistem: a
+  premissa era falsa quando invocada e é verdadeira no estado atual da baseline.
+  Este adendo não converte a verificação posterior em prova retroativa.
 
 ### DEC-010 — Fixação do escopo do patch APDF_V01 v1.0.1 e diferimento para a v1.1.0
 
@@ -122,6 +141,46 @@
 - **Responsável pela aprovação:** Proprietário Humano do Núcleo, por instrução direta na sessão (designação nominal pendente conforme GOV-AUTH-001).
 - **Data:** 2026-10-27.
 - **Artefatos afetados:** `docs/01-metodologia/APDF_V01.md`, `docs/00-governanca/registro-de-decisoes.md`, `CHANGELOG.md`, `README.md`, `MANIFESTO-SHA256.md`.
+- **Estado:** `APPROVED`.
+- **Adendo (errata de 2026-10-27, `ERR-DEC-009-010-001`):** A ressalva sobre
+  `PROP-01` a `PROP-03` e `B-01` permanece correta para a `1.0.1`. A versão `1.1.0`,
+  promovida por `DEC-011` na mesma data, incorpora `PROP-04` (`CA-APDF-01` x §6) pela
+  alternativa (a), que preserva a seção 17 e registra a divergência como `L-09`.
+  `PROP-01`, `PROP-02`, `PROP-03` e `B-01` continuam não normativas no Anexo C.3.
+
+### DEC-011 — Promoção do APDF_V01 v1.1.0 e encerramento das correções diferidas
+
+- **Contexto:** `DEC-010` fixou o escopo da `1.0.1` nas seis correções sem alteração de significado normativo e diferiu `C-01`, `C-05`, `C-06`, `C-07` e `C-11` para a versão `1.1.0`, a ser aprovada por decisão própria. A versão `1.1.0` foi construída por cópia integral da `1.0.1` e alteração localizada das seções indicadas no Anexo C.2, acrescida de duas correções editoriais de registro (`C-12`, `C-13`) que a `1.0.1` não podia receber sem novo ato de promoção. Duas escolhas de conteúdo permaneciam abertas: o modelo semântico de `REABERTO` (§7.3) e a solução da divergência entre `CA-APDF-01` (§17) e a regra de leitura das fichas (§6).
+- **Decisão:** Instrução direta do proprietário humano para **PROMOVER** a versão `1.1.0` do `APDF_V01` (`MET-APDF-001`), **ELEVAR** a baseline documental do Núcleo para **v0.3.0** e **ENCERRAR** o diferimento fixado por `DEC-010`, com:
+  - incorporação das cinco correções diferidas — `C-01` (`dependencies` e tabela de quatro colunas em §8.4), `C-05` (`justification` em §7.1), `C-06` (§15.5), `C-07` (§11.2 e §11.4) e `C-11` (§7.3);
+  - adoção do **modelo (a)** de `REABERTO`: estado persistente, alcançado apenas a partir de gate já decidido, com avanço bloqueado e saída para `PENDENTE` somente após o procedimento completo de D-03;
+  - adoção da **alternativa (a) de `PROP-04`**: `CA-APDF-01` e os demais critérios da seção 17 permanecem literalmente inalterados, e a divergência de redação é registrada como residual na lacuna `L-09`;
+  - incorporação de `C-12` e `C-13` dentro da `1.1.0`, sem versão própria para cada correção;
+  - acréscimo, ao final de `DEC-009` e de `DEC-010`, dos três adendos de errata `ERR-DEC-009-010-001`, sem reescrita de qualquer trecho das decisões originais.
+- **Alternativas consideradas:**
+  1. Manter a `1.0.1` e não promover a `1.1.0` — rejeitada por preservar a contradição de `L-08` e manter `CA-APDF-07`/`CA-APDF-08` parcialmente satisfeitos por prazo indeterminado;
+  2. Emendar `CA-APDF-01` para eliminar a divergência de redação (`PROP-04`, alternativa (b)) — rejeitada por alterar texto de critério de aceite aprovado, exigir análise de impacto e produzir versão maior sem ganho de clareza que justifique o custo;
+  3. Tratar `REABERTO` como deliberação direta ou como evento (`C-11`, alternativas (b) e (c)) — rejeitadas por exigirem reescrita de §7.2, §9 e §10 e por afastarem o texto do procedimento de reabertura já fixado em D-03;
+  4. Aplicar `C-12` e `C-13` em patch isolado da `1.0.1` — rejeitada por duplicar atos de promoção e recálculo de manifesto para correções editoriais de registro;
+  5. Promover a `1.1.0` com o modelo (a), a alternativa (a) de `PROP-04` e `C-12`/`C-13` incorporadas — **adotada**.
+- **Justificativa:** Encerra a lacuna catalogada `L-08` e entrega aos critérios `CA-APDF-07` e `CA-APDF-08` texto verificável, sem tocar no conjunto de critérios de aceite aprovado da seção 17. Preserva a integridade das decisões anteriores: `DEC-009` e `DEC-010` mantêm o texto original e passam a contar com leitura datada por adendo. Mantém a distinção entre correção editorial e mudança de método, que motivou `DEC-010`.
+- **Consequências:**
+  - `docs/01-metodologia/APDF_V01.md` passa a `1.1.0`, estado `APPROVED`; a `1.0.1` permanece acessível apenas como histórico no commit `bc45753`;
+  - a lacuna `L-08` é encerrada; a `L-10` deixa de ter objeto com `C-12`; a `L-09` permanece como residual aceito;
+  - `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra §8.4 e §11.2/§11.4, o que não equivale a declará-los satisfeitos: a verificação é ato próprio, com evidência vinculada à versão avaliada;
+  - `MANIFESTO-SHA256.md`, `CHANGELOG.md`, `README.md` e este registro são atualizados e reconciliados sob a baseline `v0.3.0`;
+  - `PROP-01`, `PROP-02`, `PROP-03` e `B-01` continuam não normativas no Anexo C.3.
+- **Ressalvas registradas:**
+  - A revisão independente do padrão continua pendente (`L-05`); esta decisão não a substitui;
+  - A aprovação é do proprietário humano, por instrução direta na sessão, sem segundo revisor;
+  - A fonte original `APDF(1).md` permanece indisponível e nenhuma conformidade com ela é declarada (`L-01`);
+  - A numeração da baseline (`v0.3.0`) foi proposta pelo agente como progressão menor de `v0.2.1` e **aguarda confirmação literal** do proprietário; a substância da decisão é do proprietário, a forma é do agente;
+  - Os adendos de errata não reabrem o Gate G0 nem revogam a autorização da Fase B;
+  - A leitura final do texto da `1.1.0` pelo proprietário permanece pendente; o estado `APPROVED` refere-se ao ato de promoção e ao conteúdo revisado nesta rodada.
+- **Escopo:** Governança, ciclo de vida e metodologia de descoberta do Núcleo Central de Engenharia (PDI).
+- **Responsável pela aprovação:** Proprietário Humano do Núcleo, por instrução direta na sessão (designação nominal pendente conforme GOV-AUTH-001).
+- **Data:** 2026-10-27.
+- **Artefatos afetados:** `docs/01-metodologia/APDF_V01.md`, `docs/00-governanca/registro-de-decisoes.md`, `README.md`, `CHANGELOG.md`, `MANIFESTO-SHA256.md`.
 - **Estado:** `APPROVED`.
 
 ## Regra de Gestão de Decisões

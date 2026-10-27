@@ -2,13 +2,13 @@
 
 **ID:** MET-APDF-001  
 **Tipo:** Metodologia de Descoberta e Preparação (Padrão)  
-**Versão:** 1.0.1 (APDF_V01)  
-**Estado:** APPROVED — patch corretivo 1.0.1 promovido em DEC-009 (2026-10-27), com escopo fixado em DEC-010.  
+**Versão:** 1.1.0  
+**Estado:** APPROVED — promovida por `DEC-011` (2026-10-27); substitui a `1.0.1` como versão normativa vigente.  
 **Proprietário:** Proprietário humano do Núcleo (designação nominal pendente conforme GOV-AUTH-001)  
 **Escopo:** Descoberta, decisão, congelamento arquitetural e handoff para engenharia em projetos que adotarem o Núcleo Central de Engenharia.  
 **Data:** 2026-10-27  
 **Dependências:** `docs/00-governanca/norma-central.md`, `docs/00-governanca/hierarquia-documental.md`, `docs/00-governanca/matriz-de-autoridade.md`, `docs/01-metodologia/anti-surto.md`, `docs/02-contratos/contrato-01-governanca.md` a `docs/02-contratos/contrato-05-inicializacao.md`.  
-**Histórico de aprovação:** DEC-007 (2026-10-26) aprovou a v1.0.0. DEC-009 (2026-10-27) homologou o Gate G0 e promoveu a v1.0.1. DEC-010 (2026-10-27) fixou o escopo do patch: a v1.0.1 incorpora apenas C-02, C-03, C-04, C-08, C-09 e C-10 — correções sem alteração de significado normativo. As correções C-01, C-05, C-06, C-07 e C-11 foram diferidas para a v1.1.0, com decisão própria, e permanecem registradas no Anexo C.  
+**Histórico de aprovação:** DEC-007 (2026-10-26) aprovou a v1.0.0. DEC-009 (2026-10-27) homologou o Gate G0 e promoveu a v1.0.1; DEC-010 (2026-10-27) fixou o escopo desse patch em C-02, C-03, C-04, C-08, C-09 e C-10, diferindo C-01, C-05, C-06, C-07 e C-11 para a v1.1.0. DEC-011 (2026-10-27) promoveu a v1.1.0, incorporando as cinco correções diferidas (Anexo C.2) e as correções editoriais C-12 e C-13 (Anexo C.5), e encerrou a lacuna `L-08`.  
 
 > **Natureza deste documento.** Este é o padrão APDF do Núcleo PDI. Não é reprodução literal do APDF original e não declara conformidade integral com ele: a fonte original `APDF(1).md` permanece indisponível. A proveniência, as adaptações e as lacunas conhecidas estão no Anexo A e na seção 16.
 
@@ -154,6 +154,8 @@ Regras do fluxo:
 | 13 | Engineering Handoff | Tudo está pronto para execução? | `Implementation Started`. |
 
 **Regra de leitura das fichas.** Cada ficha estrutura-se em torno de quatro campos nucleares: pergunta central, ação da fase, artefatos e gate (na fase 13, denominado gate final). O rótulo do segundo campo varia conforme a natureza da fase — `Elicitar` (01–08, 10), `Formalizar` (09), `Definir` (11), `Empacotar` (12), `Entregar` (13) — nomeando a ação executiva predominante. Algumas fichas contêm blocos complementares opcionais de notas contextuais (`Nota Anti-Surto`, `Nota Arquitetura`, etc.) ou de confirmação explícita de requisitos (fase 13). O critério `CA-APDF-01` afere a presença obrigatória e a completude do núcleo de quatro elementos em cada uma das 13 fases, sem impor rigidez contra notas contextuais acessórias. Neste padrão, o termo `elicitação` empregado por `CA-APDF-01` designa esse campo de ação da fase, qualquer que seja o rótulo adotado pela ficha.
+
+**Nota sobre `CA-APDF-01` (`R-01b`).** O texto do critério na seção 17 permanece literalmente inalterado: "As 13 fases têm pergunta central, elicitação, artefatos e gate definidos." A regra acima explica o termo `elicitação`, mas não reescreve o critério. Por `DEC-011`, a alternativa (a) de `PROP-04` foi adotada: o critério permanece como aprovado e vale a leitura fixada nesta seção. A divergência residual de redação permanece catalogada como `L-09` em §16.3; as alternativas (b) e (c) dependem de decisão própria e não foram executadas.
 
 ### Fase 01 — Product Discovery
 
@@ -316,7 +318,8 @@ Um gate é uma decisão registrada, não uma mensagem de "ok".
 | `summary` | Síntese do que foi produzido. |
 | `open_issues` | Questões abertas e impacto. |
 | `risks` | Riscos relevantes e mitigação. |
-| `decision` | `APROVADO`, `REJEITADO` ou `REABERTO`. |
+| `decision` | `APROVADO` ou `REJEITADO`. `REABERTO` é estado do gate (§7.3), não valor deste campo. |
+| `justification` | Justificativa da decisão, referida à evidência e ao critério aplicado (`CTR-01`, requisito 5). |
 | `conditions` | Condições vinculadas à aprovação, se houver. |
 | `approver` | Autoridade que aprovou. |
 | `date` | Data da decisão. |
@@ -328,11 +331,25 @@ Um gate é uma decisão registrada, não uma mensagem de "ok".
 - Gate `REJEITADO` mantém a fase aberta; não há avanço.
 - Gate `APROVADO` com condições registra prazo e responsável de fechamento.
 - Artefato materialmente alterado após aprovação reabre o gate.
+- Gate em `REABERTO` bloqueia o avanço até retornar a `PENDENTE` e receber nova decisão (§7.3).
 - O agente não aprova o próprio gate em nome do usuário.
 
 ### 7.3 Estados do gate
 
-`PENDENTE` → `APROVADO` | `REJEITADO` | `REABERTO`.
+`PENDENTE` → `APROVADO` | `REJEITADO`  
+`APROVADO` | `REJEITADO` → `REABERTO` (somente por D-03, §9)  
+`REABERTO` → `PENDENTE` (somente após concluídas a análise de impacto e a autorização de D-03)
+
+| Estado | Significado | Transições admitidas |
+|---|---|---|
+| `PENDENTE` | Fase em condução; nenhuma decisão registrada. | `APROVADO`, `REJEITADO` |
+| `APROVADO` | Gate decidido favoravelmente; avanço autorizado, observadas as `conditions`. | `REABERTO` |
+| `REJEITADO` | Gate decidido contrariamente; a fase permanece aberta e não há avanço (§7.2). | `REABERTO` |
+| `REABERTO` | Estado persistente de gate já decidido que retornou ao escopo por `EXPANSAO`; o avanço permanece bloqueado enquanto durar. | `PENDENTE` |
+
+`REABERTO` não é valor do campo `decision` (§7.1) e não é etapa de abertura de fase: alcança-se exclusivamente a partir de gate já decidido. A saída para `PENDENTE` exige o procedimento completo de D-03 (§9): mudança e gatilho descritos, impacto analisado, gate afetado identificado, aprovação da autoridade competente, baseline, artefatos e versões atualizados e decisão registrada. Registro de reabertura sem essas etapas é inválido e mantém o gate em `APROVADO` ou `REJEITADO`.
+
+**Nota sobre `C-11`.** O modelo acima foi adotado por `DEC-011`, na alternativa (a): `REABERTO` como estado persistente que retorna a `PENDENTE` somente depois de concluída a análise de impacto, por coerência com §9 (D-03) e §10 (`CF-03`). Alternativas consideradas e não adotadas: (b) deliberação direta de `REABERTO` para `APROVADO`/`REJEITADO`, sem retorno a `PENDENTE`, exigindo que a análise de impacto preceda a própria reabertura; (c) tratar `REABERTO` como evento e não como estado, o que obrigaria a reescrever §7.2, §9 e §10 e a manter apenas `PENDENTE`, `APROVADO` e `REJEITADO` como estados.
 
 ---
 
@@ -370,24 +387,25 @@ O Anti-Surto é um controle **preventivo** de escopo, alinhado a `MET-SURTO-001`
 
 Antes de ação relevante, registrar:
 
-| Campo | Obrigatório | Origem |
-|---|---|---|
-| `task_id` | Sim | CTR-03 |
-| `objective` | Sim | CTR-03 |
-| `apdf_phase` | Sim | CTR-03 |
-| `approved_baseline` | Sim | CTR-03 |
-| `allowed_actions` | Sim | CTR-03 |
-| `prohibited_actions` | Sim | CTR-03 |
-| `acceptance_criteria` | Sim | CTR-03 |
-| `execution_state` | Sim | CTR-03 |
-| `evidence_refs` | Sim | CTR-03 |
-| `scope_classification` | Sim | `DENTRO`, `ESCLARECIMENTO`, `CORRECAO`, `EXPANSAO` |
-| `trigger` | Quando aplicável | T-01 a T-10 |
-| `impact` | Quando `EXPANSAO` | Descrição do impacto |
-| `affected_artifacts` | Quando `EXPANSAO` | Lista de artefatos |
-| `proposed_option` | Quando `EXPANSAO` | `DESCARTAR`, `REGISTRAR`, `REABRIR` |
-| `authorizer` | Quando `REABRIR` | Autoridade que aprovou |
-| `timestamp` | Sim | Data e hora do registro |
+| Campo | Obrigatório | Origem | Valores admitidos |
+|---|---|---|---|
+| `task_id` | Sim | CTR-03 | Identificador único da tarefa. |
+| `objective` | Sim | CTR-03 | Objetivo verificável da tarefa. |
+| `apdf_phase` | Sim | CTR-03 | Fase APDF corrente (01–13). |
+| `approved_baseline` | Sim | CTR-03 | Versão `APPROVED` que autoriza a ação. |
+| `allowed_actions` | Sim | CTR-03 | Lista explícita do que é permitido. |
+| `prohibited_actions` | Sim | CTR-03 | Lista explícita do que é vedado. |
+| `acceptance_criteria` | Sim | CTR-03 | Critérios de aceite aplicáveis à tarefa. |
+| `dependencies` | Sim | CTR-03 | Dependências da tarefa e artefatos externos exigidos. |
+| `execution_state` | Sim | CTR-03 | Estado corrente da execução. |
+| `evidence_refs` | Sim | CTR-03 | Referências de evidência produzida ou exigida. |
+| `scope_classification` | Sim | §8.5 | `DENTRO`, `ESCLARECIMENTO`, `CORRECAO`, `EXPANSAO`. |
+| `trigger` | Quando aplicável | §8.2 | `T-01` a `T-10`. |
+| `impact` | Quando `EXPANSAO` | §8.5 | Descrição do impacto. |
+| `affected_artifacts` | Quando `EXPANSAO` | §8.5 | Lista de artefatos afetados. |
+| `proposed_option` | Quando `EXPANSAO` | §9 | `DESCARTAR`, `REGISTRAR`, `REABRIR`. |
+| `authorizer` | Quando `REABRIR` | §9, D-03 | Autoridade que aprovou a reabertura. |
+| `timestamp` | Sim | §8.5 | Data e hora do registro. |
 
 ### 8.5 Procedimento
 
@@ -466,8 +484,10 @@ Qualquer "não" mantém a Fase 13 aberta.
 - ADR Registry e Architecture Baseline;
 - roadmap, waves, epics e features;
 - pacotes de implementação por wave;
+- dependências entre pacotes, artefatos externos e pré-condições de execução;
 - critérios de aceite e Caderno de Testes;
 - riscos, mitigações e riscos aceitos;
+- modelo de governança aplicável à execução;
 - permissões e restrições de execução;
 - questões abertas e responsáveis;
 - referências de evidência;
@@ -476,6 +496,20 @@ Qualquer "não" mantém a Fase 13 aberta.
 ### 11.3 Limite do handoff
 
 `Implementation Started` encerra a preparação; **não autoriza execução autônoma, instalação, publicação ou implantação**. Essas ações dependem de autorização específica conforme `CTR-03` e `CTR-05`.
+
+### 11.4 Correspondência entre confirmações e conteúdo
+
+Cada uma das cinco confirmações de §11.1 deve ser comprovável por itens de §11.2. A tabela fixa a correspondência mínima; evidências adicionais podem ser acrescentadas, mas nenhuma confirmação pode ser declarada sem ao menos um item correspondente.
+
+| Confirmação (§11.1) | Itens de conteúdo que a comprovam (§11.2) |
+|---|---|
+| 1. Domínio compreendido | Baseline aprovada e versão; ADR Registry e Architecture Baseline. |
+| 2. Arquitetura aprovada | ADR Registry e Architecture Baseline; critérios de aceite e Caderno de Testes. |
+| 3. Riscos conhecidos e mitigados ou aceitos | Riscos, mitigações e riscos aceitos. |
+| 4. Governança definida | Modelo de governança aplicável à execução; permissões e restrições de execução. |
+| 5. Execução planejada | Roadmap, waves, epics e features; pacotes de implementação por wave; dependências; questões abertas e responsáveis; próximo passo autorizado. |
+
+Referências de evidência são transversais: sustentam todas as confirmações e são exigidas em qualquer caso. A ausência de um item obrigatório mantém a Fase 13 aberta, nos termos de §11.1.
 
 ---
 
@@ -572,6 +606,20 @@ Se não for possível reconstruir objetivo, baseline ou autorização, **suspend
 
 Cada fase registra: identificador, versão, artefatos, fontes, decisões, questões abertas, gate, aprovador, data e referências de evidência.
 
+### 15.5 Loops e recuperação
+
+A condução observa o `CTR-03`: detectar repetição sem progresso, reaplicação da mesma correção sem nova hipótese, oscilação, regressão e consumo anormal de recursos. Limites de tempo, iterações, tokens e chamadas são configuráveis por tarefa e por risco, coerentes com o checkpoint de §8.4.
+
+Ao atingir um limite:
+
+1. interromper a ação;
+2. preservar estado, diffs, logs e evidências;
+3. registrar tentativas e resultados;
+4. exigir hipótese diferente e justificada para nova tentativa;
+5. escalar para o proprietário humano se não houver recuperação segura.
+
+Interromper e preservar não equivale a concluir: o resultado deve ser declarado não concluído, com motivo e ponto de retomada. Repetir a mesma tentativa sobre o mesmo estado é vedado, e a interrupção não autoriza alterar baseline, critérios de aceite ou testes para contornar o bloqueio.
+
 ---
 
 ## 16. Conformidade, adaptações e lacunas
@@ -601,13 +649,17 @@ Cada fase registra: identificador, versão, artefatos, fontes, decisões, quest�
 | L-05 | Revisão independente deste padrão pendente. | Aprovação é do proprietário humano, sem segundo revisor. |
 | L-06 | Hashes de `apdf.md` e `ciclo-apdf.md` registrados na v1.0.0 não são reproduzíveis. | Origem exata da divergência não demonstrável; hashes correntes registrados no Anexo A. |
 | L-07 | Fontes candidatas sem versão, data, autor, custódia ou autoridade declaradas. | Revisão do framework original não identificável; proveniência limitada a caminho e hash. |
-| L-08 | Correções diferidas para a `1.1.0`: `dependencies` ausente no checkpoint (§8.4, `C-01`), campo de justificativa do gate (§7.1, `C-05`), loops e recuperação (§15.5, `C-06`), correspondência do handoff (§11.2/§11.4, `C-07`) e semântica de `REABERTO` (§7.3, `C-11`). | A v1.0.1 mantém lacunas conhecidas contra `CTR-01` e `CTR-03`; `CA-APDF-07` e `CA-APDF-08` não são satisfeitos integralmente até a `1.1.0`. |
+| L-08 | Correções diferidas para a `1.1.0`: `dependencies` ausente no checkpoint (§8.4, `C-01`), campo de justificativa do gate (§7.1, `C-05`), loops e recuperação (§15.5, `C-06`), correspondência do handoff (§11.2/§11.4, `C-07`) e semântica de `REABERTO` (§7.3, `C-11`). | **Encerrada** pela promoção da `1.1.0` (`DEC-011`, 2026-10-27): as cinco correções estão incorporadas nesta versão, e `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra o texto publicado. Permanece como registro histórico que, na `1.0.1`, a lacuna estava aberta. |
+| L-09 | `CA-APDF-01` (§17) usa o termo `elicitação` para um campo cujo rótulo varia por fase; a leitura está fixada em §6, mas o texto do critério não foi alterado. | Divergência residual de redação entre §6 e §17, **aceita explicitamente** por `DEC-011` ao adotar a alternativa (a) de `PROP-04`: §17 permanece byte a byte inalterada e prevalece a leitura de §6. A alteração do critério segue dependendo de decisão própria (alternativas (b) e (c), Anexo C.3). |
+| L-10 | O Anexo C.1 da `1.0.1` registrava `C-10` como aplicada incluindo "Banner de não normatividade", que não existe no arquivo publicado. | **Encerrada** pela `C-12` na promoção da `1.1.0` (`DEC-011`): o registro de `C-10` no Anexo C.1 desta versão descreve apenas o que foi aplicado. O texto histórico da `1.0.1` permanece no commit `bc45753` e não deve ser lido como registro vigente. |
 
 ### 16.4 Controle de mudança
 
 Alteração material deste padrão exige nova versão, análise de impacto, revisão e aprovação conforme `GOV-AUTH-001`, com atualização de `MANIFESTO-SHA256.md`, `CHANGELOG.md` e artefatos dependentes.
 
-A versão `1.0.1` é um **patch corretivo** promovido por `DEC-009`, com escopo fixado por `DEC-010`: incorpora apenas as correções `C-02`, `C-03`, `C-04`, `C-08`, `C-09` e `C-10`, que não alteram fases, gates, sequência, critérios de handoff nem decisões registradas. As correções `C-01`, `C-05`, `C-06`, `C-07` e `C-11` foram diferidas para a versão `1.1.0`, por acrescentarem ou alterarem conteúdo normativo (campos obrigatórios, itens de handoff e semântica dos estados do gate) e exigirem decisão própria; permanecem no Anexo C e estão catalogadas como lacuna `L-08`. Correções que alterem significado normativo (`PROP-01` a `PROP-03`) continuam isoladas no Anexo C e exigem decisão própria antes de qualquer incorporação.
+A versão `1.0.1` foi um **patch corretivo** promovido por `DEC-009`, com escopo fixado por `DEC-010`: incorporou apenas as correções `C-02`, `C-03`, `C-04`, `C-08`, `C-09` e `C-10`, que não alteram fases, gates, sequência, critérios de handoff nem decisões registradas. As correções `C-01`, `C-05`, `C-06`, `C-07` e `C-11` foram diferidas para a versão `1.1.0`, por acrescentarem ou alterarem conteúdo normativo (campos obrigatórios, itens de handoff e semântica dos estados do gate), e permaneceram catalogadas como lacuna `L-08` até a promoção desta versão. `PROP-01`, `PROP-02` e `PROP-03` continuam isoladas no Anexo C e exigem decisão própria antes de qualquer incorporação; `PROP-04`, que também alteraria texto de critério de aceite aprovado, foi decidida por `DEC-011` na alternativa (a), que preserva a seção 17.
+
+A versão `1.1.0` foi promovida por `DEC-011` (2026-10-27). Ela incorpora as cinco correções diferidas (`C-01`, `C-05`, `C-06`, `C-07`, `C-11`), que alteram o conjunto de campos obrigatórios do gate e do checkpoint, o conteúdo mínimo do handoff e a semântica dos estados, e as correções editoriais de registro `C-12` e `C-13`. A promoção encerrou a lacuna `L-08` e exigiu atualização de `MANIFESTO-SHA256.md`, `CHANGELOG.md`, `README.md` e do registro de decisões. A `1.0.1` permanece acessível apenas como histórico no commit `bc45753` e não é mais baseline normativa.
 
 ---
 
@@ -687,11 +739,11 @@ A versão `1.0.1` é um **patch corretivo** promovido por `DEC-009`, com escopo 
 
 ---
 
-## Anexo C — Correções desta revisão e propostas pendentes
+## Anexo C — Correções incorporadas e propostas pendentes
 
 ### C.1 Correções incorporadas na `1.0.1`
 
-Estas correções foram incorporadas nesta versão. A coluna `Estado` distingue o que foi **aplicado** do que foi **verificado e já estava conforme**. Nenhuma delas altera a ordem das fases, os critérios de aprovação dos gates, o conjunto de critérios de aceite da seção 17 ou decisões registradas.
+Estas correções foram incorporadas na versão `1.0.1`. A coluna `Estado` distingue o que foi **aplicado** do que foi **verificado e já estava conforme**. Nenhuma delas altera a ordem das fases, os critérios de aprovação dos gates, o conjunto de critérios de aceite da seção 17 ou decisões registradas. O registro abaixo descreve o conteúdo efetivo da `1.0.1`; a divergência antes registrada para `C-10` foi corrigida por `C-12` (seção C.5).
 
 | ID | Achado | Correção aplicada | Seção | Natureza | Estado |
 |---|---|---|---|---|---|
@@ -700,44 +752,59 @@ Estas correções foram incorporadas nesta versão. A coluna `Estado` distingue 
 | C-04 | F-05 — ciclo sem linha de adaptação | `AD-15` registra a origem `MET-CICLO-001` e a ausência do ciclo nas fontes candidatas | A.2 | Correção de rastreabilidade | Aplicada |
 | C-08 | F-10 — Fase 12 não declarava dependências no pacote | Verificado: a Fase 12 da v1.0.0 já enuncia "dependências" na ação; nenhuma alteração necessária | Fase 12 | Verificação | Já conforme — sem alteração |
 | C-09 | F-11 — Fase 13 não listava o modelo de governança entre as entregas | Verificado: a Fase 13 da v1.0.0 já lista "modelo de governança" nas entregas | Fase 13 | Verificação | Já conforme — sem alteração |
-| C-10 | F-13 — fontes sem metadados e documento sem regra de versão da candidata | Banner de não normatividade; nota de metadados das fontes; `L-07`; gatilho `.tpm/` explicitado em `AD-10`; regra de versão da `1.0.1` em §16.4 | Cabeçalho, A.1, A.2, §16.3, §16.4 | Correção editorial com efeito de governança | Aplicada |
+| C-10 | F-13 — fontes sem metadados e documento sem regra de versão da candidata | Nota de metadados das fontes; `L-07`; gatilho `.tpm/` explicitado em `AD-10`; regra de versão da `1.0.1` em §16.4. O "banner de não normatividade" não foi aplicado — ver `C-12` | A.1, A.2, §16.3, §16.4 | Correção editorial com efeito de governança | Aplicada, sem banner — registro corrigido por `C-12` |
 
 **Achados verificados sem alteração de texto.** `C-08` (`F-10`) e `C-09` (`F-11`) não se confirmaram contra o texto da v1.0.0: a Fase 12 já enuncia "dependências" e a Fase 13 já lista "modelo de governança" nas entregas. Ficam registrados como verificações concluídas.
 
-**Escopo do patch.** `DEC-010` fixou o escopo da `1.0.1` nas correções sem alteração de significado normativo. A redação anterior, promovida em `DEC-009`, incorporava também `C-01`, `C-05`, `C-06`, `C-07` e `C-11`; essas cinco correções foram retiradas do corpo desta versão e transferidas para a `1.1.0`, conforme a seção C.2.
+**Escopo do patch.** `DEC-010` fixou o escopo da `1.0.1` nas correções sem alteração de significado normativo. A redação anterior, promovida em `DEC-009`, incorporava também `C-01`, `C-05`, `C-06`, `C-07` e `C-11`; essas cinco correções foram retiradas do corpo daquela versão e transferidas para a `1.1.0`, conforme a seção C.2, onde foram incorporadas por `DEC-011`.
 
-**Critérios de aceite e esta revisão.** A seção 17 não foi alterada: `CA-APDF-01` a `CA-APDF-12` permanecem idênticos à v1.0.0. `C-03` é verificável por `CA-APDF-01`; `C-02` e `C-10` por `CA-APDF-11`. `C-04`, `C-08` e `C-09` são verificáveis contra o texto das seções e tabelas citadas. Os itens de C.2 não são verificáveis nesta versão porque não foram incorporados; a lacuna resultante está registrada como `L-08`.
+**Critérios de aceite e esta revisão.** A seção 17 permanece literalmente idêntica à da v1.0.0: `CA-APDF-01` a `CA-APDF-12` não foram reescritos, inclusive `CA-APDF-01`, cuja divergência de redação fica registrada como `PROP-04` e `L-09`. `C-02` e `C-10` são verificáveis por `CA-APDF-11`; `C-03` por `CA-APDF-01`, na leitura fixada em §6. `C-04`, `C-08` e `C-09` verificam-se contra o texto das seções e tabelas citadas. Os itens de C.2 são verificáveis nesta versão contra §7.1, §7.3, §8.4, §11.2, §11.4 e §15.5. A lacuna `L-08` foi encerrada pela promoção da `1.1.0` em `DEC-011`.
 
-### C.2 Correções diferidas para a `1.1.0`
+### C.2 Correções incorporadas nesta versão, procedentes da `1.0.1`
 
-Estas correções **não** foram incorporadas nesta versão. Todas acrescentam ou alteram conteúdo normativo — campos obrigatórios do gate e do checkpoint, itens do handoff e semântica dos estados — e, por isso, não cabem em um patch corretivo nos termos de §16.4. Permanecem registradas para decisão própria na `1.1.0`.
+Estas correções **não** foram incorporadas na `1.0.1`. Todas acrescentam ou alteram conteúdo normativo — campos obrigatórios do gate e do checkpoint, itens do handoff e semântica dos estados — e, por isso, não cabiam em um patch corretivo nos termos de §16.4. Foram **incorporadas nesta versão `1.1.0`** por `DEC-011`, com a decisão de conteúdo correspondente na coluna `Decisão`.
 
-| ID | Achado | Correção proposta | Seção | Bloqueio |
+| ID | Achado | Correção aplicada nesta versão | Seção | Decisão |
 |---|---|---|---|---|
-| C-01 | F-01 — `dependencies` ausente no checkpoint | Acrescentar a linha `dependencies` e converter a tabela para quatro colunas com `Origem` e `Valores admitidos` | §8.4 | Decisão própria (`1.1.0`); altera o conjunto de campos obrigatórios e mantém `CA-APDF-07` parcialmente não satisfeito (`L-08`) |
-| C-05 | F-06 — gate sem campo de justificativa explícito | Acrescentar `justification` ao conteúdo obrigatório do gate, referido a `CTR-01`, requisito 5 | §7.1 | Decisão própria (`1.1.0`); altera o conjunto de campos do gate |
-| C-06 | F-07 — loops e recuperação não tratados | Criar §15.5 remetendo ao `CTR-03` e fixando detecção de repetição, interrupção no limite, preservação de evidências, nova hipótese e escalonamento | §15.5 | Decisão própria (`1.1.0`); cria seção normativa nova |
-| C-07 | F-09 — handoff sem correspondência e sem dois itens vinculantes | Incluir `dependências` e `modelo de governança` em §11.2 e criar §11.4 com a correspondência das duas listas de origem | §11.2, §11.4 | Decisão própria (`1.1.0`); altera o conteúdo mínimo do handoff e mantém `CA-APDF-08` parcialmente não satisfeito (`L-08`) |
-| C-11 | F-14 — §7.3 apresentava `REABERTO` como transição a partir de `PENDENTE`, contradizendo §9 (D-03) e §10 (`CF-03`), que reabrem gate já decidido | Reescrever §7.3 para que `PENDENTE` transite apenas para `APROVADO` ou `REJEITADO` e `REABERTO` seja a transição de reabertura de gate já decidido, com avanço bloqueado | §7.3 | Decisão própria (`1.1.0`); altera a semântica dos estados do gate |
+| C-01 | F-01 — `dependencies` ausente no checkpoint | Acrescentada a linha `dependencies`; tabela convertida para quatro colunas com `Origem` e `Valores admitidos`; origem das linhas não provenientes do `CTR-03` explicitada | §8.4 | Aprovação da `1.1.0` por `DEC-011`; altera o conjunto de campos obrigatórios e encerra a lacuna `CA-APDF-07`/`L-08` |
+| C-05 | F-06 — gate sem campo de justificativa explícito | Acrescentado `justification` ao conteúdo obrigatório do gate, referido a `CTR-01`, requisito 5 | §7.1 | Aprovação da `1.1.0` por `DEC-011`; altera o conjunto de campos do gate |
+| C-06 | F-07 — loops e recuperação não tratados | Criada §15.5 remetendo ao `CTR-03` e fixando detecção de repetição, interrupção no limite, preservação de evidências, nova hipótese e escalonamento | §15.5 | Aprovação da `1.1.0` por `DEC-011`; cria seção normativa nova |
+| C-07 | F-09 — handoff sem correspondência e sem dois itens vinculantes | Incluídos `dependências` e `modelo de governança` em §11.2 e criada §11.4 com a correspondência entre as cinco confirmações e o conteúdo mínimo | §11.2, §11.4 | Aprovação da `1.1.0` por `DEC-011`; altera o conteúdo mínimo do handoff e encerra a lacuna `CA-APDF-08`/`L-08` |
+| C-11 | F-14 — §7.3 apresentava `REABERTO` como transição a partir de `PENDENTE`, contradizendo §9 (D-03) e §10 (`CF-03`), que reabrem gate já decidido | §7.3 reescrita: `PENDENTE` transita apenas para `APROVADO` ou `REJEITADO`; `REABERTO` é estado persistente alcançado a partir de gate decidido, com avanço bloqueado e saída para `PENDENTE` somente após o procedimento completo de D-03; `decision` (§7.1) passa a admitir apenas `APROVADO` e `REJEITADO` | §7.1, §7.3 | Aprovação da `1.1.0` por `DEC-011`, que adotou o modelo (a) de §7.3; altera a semântica dos estados do gate |
 
-**Nota sobre `C-11`.** A proposta acima fixa a direção da transição, mas não o estado de saída de `REABERTO`: retornar a `PENDENTE` ou exigir deliberação direta para `APROVADO`/`REJEITADO` são alternativas legítimas, e a escolha integra a decisão da `1.1.0`. Enquanto a correção não for incorporada, a contradição entre §7.3 e §9/§10 permanece catalogada como `L-08`.
+**Nota sobre `C-11`.** Esta versão adota o modelo (a) descrito em §7.3 — `REABERTO` é estado persistente e só retorna a `PENDENTE` depois de concluída a análise de impacto de D-03 -, escolhido por `DEC-011`. As alternativas (b) deliberação direta de `REABERTO` para `APROVADO`/`REJEITADO` e (c) `REABERTO` como evento, não estado, estão descritas em §7.3 e não foram adotadas; ambas exigiriam reescrever §7.2, §9 e §10.
 
 ### C.3 Propostas não aplicadas — dependem de decisão humana
 
-Estas propostas **não** foram incorporadas. Aplicá-las alteraria significado normativo ou exigiria escolha entre alternativas legítimas; por isso ficam isoladas. Os identificadores são `PROP-01` a `PROP-03` para não colidirem com os princípios `P-01` a `P-12` da seção 3; em registros anteriores desta rodada foram citados como `P-01` a `P-03`.
+Estas propostas **não** foram incorporadas. Aplicá-las alteraria significado normativo ou exigiria escolha entre alternativas legítimas; por isso ficam isoladas. Os identificadores são `PROP-01` a `PROP-04` para não colidirem com os princípios `P-01` a `P-12` da seção 3; em registros anteriores desta rodada foram citados como `P-01` a `P-03`.
 
 | ID | Achado | Proposta | Bloqueio | Alternativas |
 |---|---|---|---|---|
 | PROP-01 | F-03 — pergunta de reancoragem antes de cada gate não textualizada | Acrescentar pergunta bloqueante em §7.2 ou como `RG-01.d`: "esta ação ainda pertence ao artefato aprovado desta fase?" | Decisão futura | (a) acrescentar o texto; (b) declarar coberta pelo checkpoint §8.4 e reescrever o critério `C-07` do relatório de rastreabilidade que a exige |
 | PROP-02 | F-08 — registro explícito das quatro respostas iniciais não obrigatório por frase própria | Acrescentar campo ou frase que exija registrar as quatro respostas em §15.1/§15.4 | Decisão futura | (a) campo dedicado; (b) frase de obrigação sem novo campo |
 | PROP-03 | F-12 — limite de 3 perguntas por rodada (`AD-13`, §4.2) versus quatro perguntas iniciais obrigatórias (§4.1) | Clarificar se as quatro perguntas iniciais contam no limite de três por rodada | Decisão futura | (a) exceção explícita para a abertura; (b) aplicar o limite também à abertura, em duas rodadas; (c) elevar o limite na abertura |
+| PROP-04 | `R-01b` — `CA-APDF-01` (§17) emprega `elicitação` para um campo cujo rótulo varia por fase; §6 fixa a leitura, mas o critério não foi reescrito | Substituir `elicitação` por "ação da fase" em `CA-APDF-01`, ou renomear o critério, para eliminar a divergência entre §6 e §17 | Decidida por `DEC-011` — alternativa (a); as alternativas (b) e (c) permanecem dependentes de decisão própria, por alterarem texto de critério de aceite aprovado | (a) manter o critério e a leitura de §6, registrando a divergência como residual (`L-09`), sem alterar §17 — **adotada**; (b) emendar `CA-APDF-01` para "pergunta central, ação da fase, artefatos e gate" em versão própria, com análise de impacto; (c) manter o critério e remover a explicação de §6, aceitando a leitura literal |
 | B-01 | D-15 do relatório de rastreabilidade — parecer `REV-APDF-PROP-001` com citações imprecisas | Errata, adendo ou marca de "histórico — não usar como parecer vigente" | Decisão futura | (a) errata; (b) nova versão; (c) marca de retirada |
 
 **Nota sobre `PROP-01`.** A exigência de "pergunta de reancoragem" vem do critério `C-07` do relatório `temp/resultado-DEEPSEEK-apdf-rastreabilidade-v2.md`, não de fonte normativa do Núcleo. Por isso não foi aplicada automaticamente: sem decisão, seria mudança de método disfarçada de correção editorial.
 
+**Nota sobre `PROP-04`.** A alternativa (a) foi adotada por `DEC-011`: §17 permanece byte a byte igual à da v1.0.0 e a divergência fica registrada como `L-09`. Nenhuma das alternativas (b) ou (c) foi redigida, porque ambas alteram texto de critério aprovado e exigem decisão própria.
+
 ### C.4 Regra de precedência e vigência
 
-1. `docs/01-metodologia/APDF_V01.md` v1.0.1 é a versão normativa vigente: promoção em `DEC-009`, com escopo fixado em `DEC-010` (2026-10-27).
-2. Substitui integralmente a versão `1.0.0` aprovada em `DEC-007`.
-3. Os itens das seções C.2 e C.3 não são normativos e não produzem efeito até decisão própria; a versão `1.1.0` não está autorizada por este documento.
-4. Em caso de divergência entre o corpo deste documento e os itens diferidos, prevalece o texto do corpo.
+1. `docs/01-metodologia/APDF_V01.md` v1.1.0 é a versão normativa vigente: promovida por `DEC-011` (2026-10-27), que encerrou o diferimento fixado por `DEC-010`.
+2. A `1.1.0` substitui integralmente a `1.0.1`, promovida por `DEC-009` com escopo fixado por `DEC-010`; esta havia substituído a `1.0.0` aprovada em `DEC-007`.
+3. Os itens de C.2 estão incorporados nesta versão. Os itens de C.3 continuam não incorporados, exceto quanto a `PROP-04`, resolvida por `DEC-011` na alternativa (a), que mantém §17 inalterada.
+4. Este arquivo integra `MANIFESTO-SHA256.md` e é a baseline autorizada enquanto não houver decisão que o substitua.
+5. Em caso de divergência entre o corpo deste documento e os itens de C.2 ou C.3, prevalece o texto do corpo.
+
+### C.5 Correções editoriais de registro incorporadas nesta versão
+
+Estas correções não alteram norma: ajustam registros que descreviam conteúdo diferente do arquivo real. Não estavam cobertas por `DEC-010`, que fixou o escopo da `1.0.1`, e foram incorporadas por `DEC-011` nesta versão.
+
+| ID | Achado | Antes | Depois | Natureza |
+|---|---|---|---|---|
+| C-12 | O Anexo C.1 da `1.0.1` registra `C-10` como aplicada incluindo "Banner de não normatividade", ausente do arquivo publicado | `C-10` — "Banner de não normatividade; nota de metadados." — Estado: Aplicada (transcrição abreviada) | Registro restrito ao que existe no arquivo; banner declarado não aplicado; `L-10` encerrada nesta versão | Correção editorial de registro |
+| C-13 | A referência às propostas pendentes em §16.4 e em C.3 encerrava em `PROP-03`, omitindo `PROP-04`, que esta versão acrescenta ao Anexo C.3 | "`PROP-01` a `PROP-03`", em §16.4 e em C.3 | Referência estendida até `PROP-04` nas duas ocorrências; em §16.4 a proposta aparece identificada como decidida por `DEC-011` na alternativa (a) | Correção de consistência interna |
+
+**Limite destas correções.** `C-12` corrige o registro nesta versão e não reescreve o passado: o texto do Anexo C.1 da `1.0.1`, tal como publicado no commit `bc45753`, permanece inalterado no histórico do repositório e não deve ser lido como registro vigente.

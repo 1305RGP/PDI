@@ -2,12 +2,12 @@
 
 **ID:** PDI-ROOT-README  
 **Tipo:** Visão Geral do Projeto  
-**Baseline documental:** v0.2.1  
+**Baseline documental:** v0.3.0  
 **Estado:** APPROVED — conceitualmente; materialização documental inicial homologada no Gate G0; Fase B autorizada.  
 **Proprietário:** Proprietário humano do Núcleo (designação nominal pendente conforme GOV-AUTH-001)  
 **Escopo:** Núcleo Central de Engenharia e governança base do projeto PDI.  
 **Data:** 2026-10-27  
-**Histórico de aprovação:** v0.1.0 — aprovada conceitualmente em DEC-001 a DEC-006 (2026-10-26). v0.2.0 — incorpora DEC-007, que designa o `APDF_V01` como padrão metodológico (2026-10-26). v0.2.1 — incorpora DEC-008 (critérios de G0), DEC-009 (homologação do Gate G0, patch APDF_V01 v1.0.1 e autorização da Fase B) e DEC-010 (escopo do patch v1.0.1 e diferimento de cinco correções para a v1.1.0) (2026-10-27).  
+**Histórico de aprovação:** v0.1.0 — aprovada conceitualmente em DEC-001 a DEC-006 (2026-10-26). v0.2.0 — incorpora DEC-007, que designa o `APDF_V01` como padrão metodológico (2026-10-26). v0.2.1 — incorpora DEC-008 (critérios de G0), DEC-009 (homologação do Gate G0, patch APDF_V01 v1.0.1 e autorização da Fase B) e DEC-010 (escopo do patch v1.0.1 e diferimento de cinco correções para a v1.1.0) (2026-10-27). v0.3.0 — incorpora DEC-011 (promoção do `APDF_V01` para a versão 1.1.0, encerramento da lacuna `L-08` e adendos de errata de DEC-009/DEC-010) (2026-10-27).  
 
 ## Objetivo
 
@@ -26,9 +26,9 @@ Estabelecer um núcleo reutilizável de governança, qualidade, rastreabilidade 
 ## Estado atual
 
 - Contratos conceitualmente aprovados: 01 a 05.
-- Metodologia de descoberta: padrão `APDF_V01` adotado em DEC-007, vigente na versão `1.0.1` (promovida em DEC-009, escopo fixado em DEC-010); detector Anti-Surto e integração TPM não implementados.
-- Escopo do patch `1.0.1`: seis correções sem alteração de significado normativo (`C-02`, `C-03`, `C-04`, `C-08`, `C-09`, `C-10`). As correções `C-01`, `C-05`, `C-06`, `C-07` e `C-11` foram diferidas para a `1.1.0`, ainda não autorizada, e permanecem registradas em Anexo C.2 do padrão e na lacuna `L-08`.
-- Ressalvas em aberto no padrão: `CA-APDF-07` e `CA-APDF-08` parcialmente satisfeitos até a `1.1.0`; propostas `PROP-01` a `PROP-03` e `B-01` não normativas no Anexo C.3; leitura final do texto da `1.0.1` pelo proprietário pendente.
+- Metodologia de descoberta: padrão `APDF_V01` adotado em DEC-007, vigente na versão `1.1.0` (promovida em `DEC-011`); a versão `1.0.1` permanece apenas como histórico no commit `bc45753`. Detector Anti-Surto e integração TPM não implementados.
+- Conteúdo da `1.1.0`: incorpora as cinco correções diferidas por `DEC-010` (`C-01`, `C-05`, `C-06`, `C-07`, `C-11`) e as correções editoriais de registro `C-12` e `C-13`; `REABERTO` é estado persistente (modelo (a)) e `PROP-04` foi decidida na alternativa (a), que preserva a seção 17. A lacuna `L-08` está encerrada.
+- Ressalvas em aberto no padrão: `L-09` mantida como residual aceito; `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra a `1.1.0`, sem que isso os declare satisfeitos; propostas `PROP-01` a `PROP-03` e `B-01` não normativas no Anexo C.3; revisão independente pendente (`L-05`); leitura final do texto da `1.1.0` pelo proprietário pendente.
 - Estrutura documental inicial: definida neste pacote.
 - Código de implementação: inexistente neste pacote.
 - Testes automatizados dos controles: ainda não implementados nem executados.

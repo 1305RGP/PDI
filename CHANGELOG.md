@@ -2,9 +2,22 @@
 
 **ID:** PDI-CHANGELOG  
 **Tipo:** Registro de Mudanças  
-**Versão:** 0.2.1  
+**Versão:** 0.3.0  
 **Estado:** APPROVED — ativo e controlado.  
 **Data:** 2026-10-27  
+
+## [0.3.0] — 2026-10-27
+
+### Promoção do APDF_V01 para a versão 1.1.0 (DEC-011)
+- Promoção de `docs/01-metodologia/APDF_V01.md` (`MET-APDF-001`) para a versão `1.1.0`, estado `APPROVED`, por `DEC-011`, encerrando o diferimento fixado em `DEC-010`.
+- **Conteúdo incorporado:** `C-01` (campo obrigatório `dependencies` e tabela de quatro colunas no checkpoint, §8.4), `C-05` (`justification` no conteúdo obrigatório do gate, §7.1), `C-06` (nova §15.5, loops e recuperação), `C-07` (`dependências` e `modelo de governança` em §11.2 e nova §11.4) e `C-11` (semântica dos estados do gate em §7.3, com `REABERTO` como estado persistente).
+- **Escolhas de conteúdo:** modelo (a) de `REABERTO` — estado persistente, com saída para `PENDENTE` somente após o procedimento completo de D-03; alternativa (a) de `PROP-04` — `CA-APDF-01` e os demais critérios da seção 17 permanecem literalmente inalterados, com a divergência de redação registrada como residual em `L-09`.
+- **Correções editoriais de registro:** `C-12` ajusta a descrição de `C-10` no Anexo C.1 (o banner de não normatividade nunca existiu no arquivo publicado) e `C-13` estende a referência às propostas pendentes até `PROP-04`. Ambas incorporadas dentro da `1.1.0`, sem versão própria.
+- **Errata por adendo:** acréscimo de três adendos `ERR-DEC-009-010-001` ao final de `DEC-009` e de `DEC-010`, sem reescrita das decisões originais — reconciliando a descrição de conteúdo de `DEC-009` com o escopo efetivo fixado por `DEC-010` e registrando a leitura temporal da premissa de conformidade dos 27 artefatos.
+- **Lacunas:** `L-08` encerrada; `L-10` encerrada por `C-12`; `L-09` mantida como residual aceito. As lacunas `L-01` a `L-07` permanecem inalteradas.
+- **Escopo preservado:** seção 17 do `APDF_V01` byte-idêntica à da versão anterior (verificado nesta rodada: 18 linhas, SHA-256 `96BCA24677706533DFBE74C2EEBFAF7F585F56B42A2A6692380F1DAA910F9B34`); nenhum código de produto; nenhuma dependência instalada; nenhuma ferramenta externa executada.
+- Elevação da baseline documental do Núcleo para `v0.3.0`; `MANIFESTO-SHA256.md` recalculado para os 27 arquivos normativos.
+- Ressalvas: revisão independente pendente (`L-05`); leitura final do texto da `1.1.0` pelo proprietário pendente; numeração `v0.3.0` proposta pelo agente e pendente de confirmação literal; `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra a `1.1.0`, sem que isso os declare satisfeitos.
 
 ## [0.2.1] — 2026-10-27
 

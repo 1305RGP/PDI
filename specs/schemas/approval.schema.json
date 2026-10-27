@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pdi.local/schemas/approval.schema.json",
+  "title": "Registro de aprovação ou decisão",
+  "type": "object",
+  "required": ["artifact_id", "artifact_version", "decider", "decision", "date", "justification"],
+  "properties": {
+    "artifact_id": {"type": "string", "minLength": 1},
+    "artifact_version": {"type": "string", "minLength": 1},
+    "decider": {"type": "string", "minLength": 1},
+    "decision": {"type": "string", "minLength": 1},
+    "date": {"type": "string", "format": "date"},
+    "justification": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": true
+}
