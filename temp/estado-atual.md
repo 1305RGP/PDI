@@ -4,7 +4,7 @@
 **Tipo:** Síntese de Estado Operacional e Governança  
 **Data:** 2026-10-27  
 **Versão do Projeto:** 0.2.1  
-**Status:** EM PROGRESSO (Gate G0 homologado; baseline v0.2.1; Fase B autorizada; Gate G1 ativo; pendências de redação do `DEC-010` e da leitura final da `1.0.1` em aberto)
+**Status:** EM PROGRESSO (Lote G1 concluído pelas 3 IAs; Gate G1 pronto para avaliação humana; baseline v0.2.1 com 27/27 conferidos; candidata APDF v1.1.0 e minuta DEC-011 prontas em temp/)
 
 ---
 
@@ -12,7 +12,7 @@
 
 - **Fase Vigente:** **Fase B (Modelagem Técnica de Schemas e Testes de Conformidade)**, autorizada em `DEC-009`.
 - **Gate Ativo:** **Gate G1 — Validação Técnica e Executabilidade dos Schemas Formais e Testes de Conformidade da Fase B**. O **Gate G0** foi encerrado e homologado em `DEC-009` (2026-10-27).
-- **Condição Operacional:** execução autônoma de código, instalação de dependências e integrações externas permanecem bloqueadas. Promoção controlada de `specs/` e `temp/lote-02-gpt/` autorizada por `DEC-009`, ainda não executada.
+- **Condição Operacional:** O Lote G1 foi executado integralmente em paralelo por Gemini, GPT e DeepSeek. Os 10 schemas e 10 fixtures de teste candidatos foram validados via harness PowerShell (102 checks PASS); a execução do motor Draft 2020-12 oficial permanece bloqueada por ausência de autorização de instalação. O Gate G1 está formalmente PRONTO PARA AVALIAÇÃO HUMANA / PENDENTE TECNICAMENTE. Nenhum arquivo normativo foi alterado.
 
 ---
 
@@ -60,6 +60,10 @@ Registradas formalmente em [`docs/00-governanca/registro-de-decisoes.md`](file:/
    - `docs/01-metodologia/APDF_V01.md` reduzido às seis correções `C-02`, `C-03`, `C-04`, `C-08`, `C-09` e `C-10`; §7.1, §7.3, §8.4, §11.2 e §15.5 restaurados ao texto da v1.0.0; §17 byte-idêntica à v1.0.0.
    - Anexo C reestruturado em C.1 (incorporadas), C.2 (diferidas para `1.1.0`), C.3 (propostas não aplicadas) e C.4 (precedência e vigência); lacuna `L-08` criada em §16.3.
    - `DEC-010` registrado; `CHANGELOG.md` e `README.md` reconciliados; `MANIFESTO-SHA256.md` recalculado para os 27 arquivos.
+8. **Execução Integral do Lote G1 pelas 3 IAs (Fase B / Gate G1):**
+   - **Gemini:** Auditoria física do repositório (`HEAD = bc45753`), conferência de 100% de integridade da baseline v0.2.1 (27/27 arquivos), reconciliação histórica DEC-008/009/010, elaboração da proposta de critérios G1 (`CA-G1-01`..`06`), matriz de evidências e plano de consolidação (`ENTREGA_G1_GEMINI_AUDITORIA.md`, `MATRIZ_G1_EVIDENCIAS.md`, `PLANO_CONSOLIDACAO_G1.md`, `PATCH_CANDIDATO_GOVERNANCA_G1.md`).
+   - **GPT:** Conclusão da modelagem dos 10 JSON Schemas e 10 fixtures candidatos com 44 PASS na suíte G1 e 58 PASS na validação de contratos em PowerShell (`ENTREGA_G1_GPT_VALIDACAO.md`, `RELATORIO_VALIDACAO_DRAFT2020_12.md`, `MATRIZ_RASTREABILIDADE_G1.md`, `PATCH_PROMOCAO_SCHEMAS_TESTES_G1.md`, `PLANO_IMPLEMENTACAO_NUCLEO_G1.md`); identificação do bloqueio do motor Draft 2020-12 oficial.
+   - **DeepSeek:** Elaboração da candidata `APDF_V1_1_0_CANDIDATA.md` incorporando as 5 correções diferidas (`C-01`, `C-05`, `C-06`, `C-07`, `C-11`) e novos ajustes (`C-12`, `C-13`), com diff auditável e errata cronológica de DEC-009/DEC-010 (`ENTREGA_G1_DEEPSEEK_APDF.md`, `REGISTRO_ALTERACOES_APDF_G1.md`, `ERRATA_DEC009_DEC010_CANDIDATA.md`, `MATRIZ_CONFORMIDADE_APDF_G1.md`).
 
 ---
 
