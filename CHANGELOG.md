@@ -2,9 +2,25 @@
 
 **ID:** PDI-CHANGELOG  
 **Tipo:** Registro de Mudanças  
-**Versão:** 0.2.0  
+**Versão:** 0.2.1  
 **Estado:** APPROVED — ativo e controlado.  
-**Data:** 2026-10-26  
+**Data:** 2026-10-27  
+
+## [0.2.1] — 2026-10-27
+
+### Homologação do Gate G0 e Transição para Fase B (DEC-008, DEC-009 e DEC-010)
+- Estabelecimento formal dos critérios de aceite objetivos do Gate G0 (`CA-G0-01` a `CA-G0-06`) via `DEC-008`, sanando a proveniência dos critérios normativos (achado `R-04`).
+- Homologação formal e encerramento do Gate G0 (Revisão da Materialização Documental) pelo Proprietário Humano via `DEC-009`.
+- Autorização formal de início da Fase B (Modelagem Técnica de Schemas e Testes Automatizados de Governança).
+- Promoção da metodologia `APDF_V01.md` para a versão `1.0.1` (`MET-APDF-001`, `APPROVED`), com escopo fixado por `DEC-010`.
+- **Escopo do patch `1.0.1` (DEC-010):** incorpora apenas as seis correções sem alteração de significado normativo — `C-02` (hashes de `apdf.md`/`ciclo-apdf.md` recalculados em A.1, com `L-06`), `C-03` (regra de leitura das fichas em §6, incluindo a designação do campo de ação pelo termo `elicitação` do critério `CA-APDF-01`), `C-04` (`AD-15`, origem `MET-CICLO-001`), `C-08` e `C-09` (verificações sem alteração de texto) e `C-10` (metadados de fonte, `L-07`, gatilho `.tpm/` em `AD-10`).
+- **Correções diferidas para a `1.1.0` (não incluídas nesta versão):** `C-01` (`dependencies` e tabela de quatro colunas em §8.4), `C-05` (`justification` em §7.1), `C-06` (§15.5, loops e recuperação), `C-07` (`dependências`/`modelo de governança` em §11.2 e nova §11.4) e `C-11` (semântica de `REABERTO` em §7.3). Permaneceram em Anexo C.2 e na lacuna `L-08`; a `1.1.0` exige decisão própria e não está autorizada.
+- **Achados e resíduos:** `R-01` encerrado por `C-03`; `R-02` não resolvido — a contradição entre §7.3 e §9/§10 permanece, agora catalogada como `L-08` em vez de corrigida por patch; `R-03` corrigido como alegação (retirada da afirmação não provada de divergência "desde `9f85961`"), com `L-06` mantida por origem e momento da divergência não determinados.
+- **Correção de registro:** a entrada original desta versão, redigida antes da revisão crítica, afirmava recálculo integral do manifesto e resolução de `R-01`, `R-02` e `R-03`; ambas as afirmações não se sustentavam e foram substituídas por este texto. A afirmação de "conformidade integral dos 27 artefatos" em `DEC-009` está superada por `DEC-010`; o registro de `DEC-009` não foi alterado.
+- Atualização da baseline documental do Núcleo para `v0.2.1`.
+- `MANIFESTO-SHA256.md` recalculado para os 27 arquivos normativos após o recorte, com cabeçalho atualizado para `DEC-010`.
+- Escopo preservado: nenhum código de produto gerado; nenhuma dependência ou ferramenta externa executada; seção 17 do `APDF_V01` (`CA-APDF-01` a `CA-APDF-12`) byte-idêntica à `1.0.0`.
+- Ressalvas: leitura final do texto da `1.0.1` pelo proprietário pendente; redação de `DEC-010` pendente de confirmação literal; `CA-APDF-07` e `CA-APDF-08` parcialmente satisfeitos até a `1.1.0` (`L-08`).
 
 ## [0.2.0] — 2026-10-26
 

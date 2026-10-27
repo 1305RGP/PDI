@@ -1,0 +1,212 @@
+﻿diff --git "a/docs\\01-metodologia\\APDF_V01.md" "b/temp\\APDF_V01_CORRIGIDA_CANDIDATA.md"
+index a05e49d..4cd73da 100644
+--- "a/docs\\01-metodologia\\APDF_V01.md"
++++ "b/temp\\APDF_V01_CORRIGIDA_CANDIDATA.md"
+@@ -4,4 +4,4 @@
+ **Tipo:** Metodologia de Descoberta e Prepara├º├úo (Padr├úo)  
+-**Vers├úo:** 1.0.0 (APDF_V01)  
+-**Estado:** APPROVED ÔÇö designado padr├úo em DEC-007 (2026-10-26).  
++**Vers├úo:** 1.0.1 (candidata corretiva ÔÇö n├úo promovida)  
++**Estado:** PENDING_APPROVAL ÔÇö candidata; a vers├úo vigente continua sendo `1.0.0`, `APPROVED` por DEC-007.  
+ **Propriet├írio:** Propriet├írio humano do N├║cleo (designa├º├úo nominal pendente conforme GOV-AUTH-001)  
+@@ -10,3 +10,3 @@
+ **Depend├¬ncias:** `docs/00-governanca/norma-central.md`, `docs/00-governanca/hierarquia-documental.md`, `docs/00-governanca/matriz-de-autoridade.md`, `docs/01-metodologia/anti-surto.md`, `docs/02-contratos/contrato-01-governanca.md` a `docs/02-contratos/contrato-05-inicializacao.md`.  
+-**Hist├│rico de aprova├º├úo:** DEC-007 (2026-10-26). Consolida `MET-APDF-001` v0.1.0 (DRAFT, agora `SUPERSEDED`) e as fontes candidatas externas `APDF.md` e `ORQUESTRADOR_APDF.md`.
++**Hist├│rico de aprova├º├úo:** DEC-007 (2026-10-26) aprovou a v1.0.0. v1.0.1 (candidata, 2026-10-26) aplica as corre├º├Áes `C-01` a `C-11` do Anexo C; **n├úo aprovada**, n├úo registrada em `DEC` e n├úo promovida. A v1.0.0 consolidou `MET-APDF-001` v0.1.0 (DRAFT, agora `SUPERSEDED`) e as fontes candidatas externas `APDF.md` e `ORQUESTRADOR_APDF.md`.
+ 
+@@ -14,2 +14,4 @@
+ 
++> **Documento candidato ÔÇö n├úo normativo.** Esta c├│pia foi produzida em `temp/` para revis├úo. Ela **n├úo substitui** `docs/01-metodologia/APDF_V01.md` v1.0.0, que permanece `APPROVED` e vigente at├® decis├úo registrada (`DH-10`). Nenhuma promo├º├úo de baseline, atualiza├º├úo de `MANIFESTO-SHA256.md`/`CHANGELOG.md` ou aprova├º├úo ├® declarada por este arquivo. Corre├º├Áes pendentes de decis├úo humana (`PROP-01` a `PROP-03`) **n├úo** foram aplicadas e aparecem isoladas no Anexo C.
++
+ ---
+@@ -155,2 +157,4 @@ Regras do fluxo:
+ 
++**Regra de leitura das fichas.** Cada ficha tem quatro campos fixos, nesta ordem: pergunta central, a├º├úo da fase, artefatos e gate. O r├│tulo do segundo campo varia conforme a natureza da fase ÔÇö `Elicitar` (01ÔÇô08, 10), `Formalizar` (09), `Definir` (11), `Empacotar` (12), `Entregar` (13) ÔÇö e essa varia├º├úo ├® intencional: ele nomeia a a├º├úo predominante, n├úo um campo diferente. A verifica├º├úo de `CA-APDF-01` incide sobre a presen├ºa e o conte├║do do segundo campo, n├úo sobre a uniformidade do r├│tulo.
++
+ ### Fase 01 ÔÇö Product Discovery
+@@ -317,2 +321,3 @@ Um gate ├® uma decis├úo registrada, n├úo uma mensagem de "ok".
+ | `decision` | `APROVADO`, `REJEITADO` ou `REABERTO`. |
++| `justification` | Justificativa da decis├úo, referida ao artefato e ├á vers├úo (`CTR-01`, requisito 5). |
+ | `conditions` | Condi├º├Áes vinculadas ├á aprova├º├úo, se houver. |
+@@ -332,3 +337,5 @@ Um gate ├® uma decis├úo registrada, n├úo uma mensagem de "ok".
+ 
+-`PENDENTE` ÔåÆ `APROVADO` | `REJEITADO` | `REABERTO`.
++`PENDENTE` ÔåÆ `APROVADO` | `REJEITADO`.
++
++`REABERTO` n├úo ├® estado terminal: ├® a transi├º├úo que devolve o gate a `PENDENTE` para nova decis├úo registrada. Um gate `APROVADO` ou `REJEITADO` torna-se `REABERTO` quando h├í reabertura formal (se├º├úo 9, op├º├úo D-03; se├º├úo 10, `CF-03`), e de `REABERTO` s├│ se sai por `APROVADO` ou `REJEITADO`, com novo registro de decis├úo. Enquanto o gate estiver `REABERTO`, o avan├ºo permanece bloqueado.
+ 
+@@ -370,20 +377,23 @@ Antes de a├º├úo relevante, registrar:
+ 
+-| Campo | Obrigat├│rio | Origem |
+-|---|---|---|
+-| `task_id` | Sim | CTR-03 |
+-| `objective` | Sim | CTR-03 |
+-| `apdf_phase` | Sim | CTR-03 |
+-| `approved_baseline` | Sim | CTR-03 |
+-| `allowed_actions` | Sim | CTR-03 |
+-| `prohibited_actions` | Sim | CTR-03 |
+-| `acceptance_criteria` | Sim | CTR-03 |
+-| `execution_state` | Sim | CTR-03 |
+-| `evidence_refs` | Sim | CTR-03 |
+-| `scope_classification` | Sim | `DENTRO`, `ESCLARECIMENTO`, `CORRECAO`, `EXPANSAO` |
+-| `trigger` | Quando aplic├ível | T-01 a T-10 |
+-| `impact` | Quando `EXPANSAO` | Descri├º├úo do impacto |
+-| `affected_artifacts` | Quando `EXPANSAO` | Lista de artefatos |
+-| `proposed_option` | Quando `EXPANSAO` | `DESCARTAR`, `REGISTRAR`, `REABRIR` |
+-| `authorizer` | Quando `REABRIR` | Autoridade que aprovou |
+-| `timestamp` | Sim | Data e hora do registro |
++| Campo | Obrigat├│rio | Origem | Valores admitidos |
++|---|---|---|---|
++| `task_id` | Sim | CTR-03 | ÔÇö |
++| `objective` | Sim | CTR-03 | ÔÇö |
++| `apdf_phase` | Sim | CTR-03 | ÔÇö |
++| `approved_baseline` | Sim | CTR-03 | ÔÇö |
++| `allowed_actions` | Sim | CTR-03 | ÔÇö |
++| `prohibited_actions` | Sim | CTR-03 | ÔÇö |
++| `acceptance_criteria` | Sim | CTR-03 | ÔÇö |
++| `dependencies` | Sim | CTR-03 | ÔÇö |
++| `execution_state` | Sim | CTR-03 | estados definidos no `CTR-03` |
++| `evidence_refs` | Sim | CTR-03 | ÔÇö |
++| `scope_classification` | Sim | Extens├úo local (`APDF_V01`) | `DENTRO`, `ESCLARECIMENTO`, `CORRECAO`, `EXPANSAO` |
++| `trigger` | Quando aplic├ível | Extens├úo local | `T-01` a `T-10` |
++| `impact` | Quando `EXPANSAO` | Extens├úo local | descri├º├úo do impacto |
++| `affected_artifacts` | Quando `EXPANSAO` | Extens├úo local | lista de artefatos |
++| `proposed_option` | Quando `EXPANSAO` | Extens├úo local | `DESCARTAR`, `REGISTRAR`, `REABRIR` |
++| `authorizer` | Quando `REABRIR` | Extens├úo local | autoridade que aprovou |
++| `timestamp` | Sim | Extens├úo local | data e hora do registro |
++
++A coluna `Origem` identifica a fonte normativa do campo; a coluna `Valores admitidos` registra o dom├¡nio de valores, quando fechado. Os dez primeiros campos s├úo os do `CTR-03` e n├úo podem ser renomeados, omitidos ou substitu├¡dos; os demais s├úo extens├úo local deste padr├úo e n├úo alteram o contrato.
+ 
+@@ -463,2 +473,3 @@ Qualquer "n├úo" mant├®m a Fase 13 aberta.
+ - baseline aprovada e vers├úo;
++- depend├¬ncias entre pacotes e de ambiente (`CTR-03`);
+ - ADR Registry e Architecture Baseline;
+@@ -467,2 +478,3 @@ Qualquer "n├úo" mant├®m a Fase 13 aberta.
+ - crit├®rios de aceite e Caderno de Testes;
++- modelo de governan├ºa e quality gates (Fase 11);
+ - riscos, mitiga├º├Áes e riscos aceitos;
+@@ -473,2 +485,4 @@ Qualquer "n├úo" mant├®m a Fase 13 aberta.
+ 
++A lista acima ├® a consolida├º├úo de duas origens distintas; a correspond├¬ncia est├í em ┬º11.4. Inclus├Áes sem origem direta nas duas listas ÔÇö quest├Áes abertas, refer├¬ncias de evid├¬ncia e pr├│ximo passo autorizado ÔÇö s├úo extens├úo local exigida por `CTR-01` e `CTR-05`.
++
+ ### 11.3 Limite do handoff
+@@ -477,2 +491,20 @@ Qualquer "n├úo" mant├®m a Fase 13 aberta.
+ 
++### 11.4 Correspond├¬ncia com as listas de origem
++
++| Origem | Item de origem | Onde consta em ┬º11.2 |
++|---|---|---|
++| `APDF.md`, Fase 13 | Arquitetura completa | baseline aprovada e vers├úo; ADR Registry e Architecture Baseline |
++| `APDF.md`, Fase 13 | Roadmap com waves | roadmap, waves, epics e features |
++| `APDF.md`, Fase 13 | Packages prontos | pacotes de implementa├º├úo por wave |
++| `APDF.md`, Fase 13 | Modelo de governan├ºa | modelo de governan├ºa e quality gates |
++| `apdf.md` v0.1.0, ┬º4 | Baseline | baseline aprovada e vers├úo |
++| `apdf.md` v0.1.0, ┬º4 | Depend├¬ncias | depend├¬ncias entre pacotes e de ambiente |
++| `apdf.md` v0.1.0, ┬º4 | Crit├®rios de aceite | crit├®rios de aceite e Caderno de Testes |
++| `apdf.md` v0.1.0, ┬º4 | Caderno de Testes | crit├®rios de aceite e Caderno de Testes |
++| `apdf.md` v0.1.0, ┬º4 | Riscos | riscos, mitiga├º├Áes e riscos aceitos |
++| `apdf.md` v0.1.0, ┬º4 | Permiss├Áes | permiss├Áes e restri├º├Áes de execu├º├úo |
++| Extens├úo local (`CTR-01`, `CTR-05`) | ÔÇö | quest├Áes abertas e respons├íveis; refer├¬ncias de evid├¬ncia; pr├│ximo passo autorizado |
++
++**Regra de leitura:** a tabela mapeia a origem, n├úo a exclusividade. Um item de ┬º11.2 pode satisfazer mais de uma origem (por exemplo, "crit├®rios de aceite e Caderno de Testes" cobre dois itens da baseline anterior). Nenhum item das duas listas de origem ficou sem destino.
++
+ ---
+@@ -572,2 +604,14 @@ Cada fase registra: identificador, vers├úo, artefatos, fontes, decis├Áes, quest
+ 
++### 15.5 Loops e recupera├º├úo
++
++O `CTR-03` (se├º├úo "Loops e recupera├º├úo") vincula a condu├º├úo a detectar repeti├º├úo sem progresso, reaplica├º├úo da mesma corre├º├úo sem nova hip├│tese, oscila├º├úo, regress├úo e consumo anormal de recursos. Este padr├úo n├úo redefine a regra: aplica-a.
++
++- Limites de tempo, itera├º├Áes, tokens e chamadas s├úo configur├íveis por tarefa e por risco; o valor concreto pertence ao contexto operacional (┬º15.2) e ├á configura├º├úo do harness, n├úo a este documento.
++- Ao atingir o limite: **interromper**, salvar estado, diffs, logs e evid├¬ncias, e registrar tentativas e resultados.
++- Nova tentativa exige hip├│tese diferente e justificada.
++- Sem recupera├º├úo segura, escalar para humano.
++- Estado `BLOCKED` ou interrompido n├úo pode ser reportado como conclu├¡do (`CA-03-07`).
++
++A interrup├º├úo n├úo revoga o gate em curso nem autoriza mudan├ºa de escopo; se a falha revelar desvio, aplica-se a se├º├úo 8.
++
+ ---
+@@ -599,2 +643,4 @@ Cada fase registra: identificador, vers├úo, artefatos, fontes, decis├Áes, quest
+ | L-05 | Revis├úo independente deste padr├úo pendente. | Aprova├º├úo ├® do propriet├írio humano, sem segundo revisor. |
++| L-06 | Hashes de `apdf.md` e `ciclo-apdf.md` registrados na v1.0.0 n├úo s├úo reproduz├¡veis. | Origem exata da diverg├¬ncia n├úo demonstr├ível; hashes correntes registrados no Anexo A. |
++| L-07 | Fontes candidatas sem vers├úo, data, autor, cust├│dia ou autoridade declaradas. | Revis├úo do framework original n├úo identific├ível; proveni├¬ncia limitada a caminho e hash. |
+ 
+@@ -604,2 +650,4 @@ Altera├º├úo material deste padr├úo exige nova vers├úo, an├ílise de impacto, revi
+ 
++A vers├úo `1.0.1` desta c├│pia ├® **patch corretivo candidato**: n├úo altera fases, gates, sequ├¬ncia, crit├®rios de handoff nem decis├Áes registradas; corrige exatid├úo, completude e rastreabilidade. Ela **n├úo ├® promovida** por este arquivo. Enquanto n├úo houver decis├úo registrada (`DH-10`), a baseline vigente permanece `1.0.0`, e `docs/01-metodologia/APDF_V01.md` continua sendo o ├║nico texto normativo. Corre├º├Áes que alterem significado normativo (`PROP-01` a `PROP-03`) est├úo isoladas no Anexo C e exigem decis├úo pr├│pria antes de qualquer incorpora├º├úo.
++
+ ---
+@@ -633,5 +681,5 @@ Altera├º├úo material deste padr├úo exige nova vers├úo, an├ílise de impacto, revi
+ | ORQUESTRADOR_APDF.md | `E:\documentos\projetos\ORQUESTRADOR_APDF.md` | `6CAD6D1C9CC11606AECF25A9C26B720D2679D98F4E893B5E290833D10013FD27` | Modo document-aware, protocolo de 6 passos, limite de 3 perguntas, marca├º├úo de origem, estado interno, estrutura de reposit├│rio. |
+-| apdf.md (v0.1.0) | `docs/01-metodologia/apdf.md` | `DB5FBF1EC16C329EB8C8E0435EB317BBD7AB2D460539B847D08DE489DA28CB15` | Estrutura local, proibi├º├úo de conformidade, lista de fases. |
++| apdf.md (v0.1.0, `SUPERSEDED`) | `docs/01-metodologia/apdf.md` | `7E0E97E99BBE444F32C6A486F0294EE121B89C829E5B7DE675DE48E3D1B1D8A5` | Estrutura local, proibi├º├úo de conformidade, lista de fases. |
+ | anti-surto.md | `docs/01-metodologia/anti-surto.md` | `E8D6DD8BE893E82C6281B46F4E2B1DA71C2BAFB0354B179A5B4B6586C2BBB7F8` | Anti-Surto e tr├¬s op├º├Áes. |
+-| ciclo-apdf.md | `docs/01-metodologia/ciclo-apdf.md` | `75CF2E28E9579463A7F2F1210DC37A4D0FF0D90BAE257E9FE023E8704259E612` | Ciclo de 6 passos. |
++| ciclo-apdf.md | `docs/01-metodologia/ciclo-apdf.md` | `B08F9B0C014A67F96330F7DE48BFBD5AE89A4200FB2B75FDBF11A2EA05C5416E` | Ciclo de 6 passos. |
+ | CTR-03 | `docs/02-contratos/contrato-03-harness.md` | `70BA80E3CEAC6A82DA417ACA03930FC1E6A5B9369906F6909ECA850F1C8C28F9` | Contexto m├¡nimo, estados, loops. |
+@@ -640,2 +688,6 @@ Altera├º├úo material deste padr├úo exige nova vers├úo, an├ílise de impacto, revi
+ 
++**Nota sobre os hashes (`F-02`).** Os valores acima foram recalculados sobre os arquivos existentes no reposit├│rio na data desta revis├úo. A vers├úo 1.0.0 registrava, para `apdf.md` e `ciclo-apdf.md`, os hashes `DB5FBF1EC16C329EB8C8E0435EB317BBD7AB2D460539B847D08DE489DA28CB15` e `75CF2E28E9579463A7F2F1210DC37A4D0FF0D90BAE257E9FE023E8704259E612`; **nenhum dos dois ├® reproduz├¡vel** no estado atual do reposit├│rio nem no hist├│rico Git dispon├¡vel (`git cat-file -e` falha). A diverg├¬ncia ├® compat├¡vel com a altera├º├úo de `apdf.md` e `ciclo-apdf.md` por `DEC-007` (transi├º├úo para `SUPERSEDED` e atualiza├º├úo de depend├¬ncia), mas a causa exata n├úo ├® demonstr├ível apenas com as evid├¬ncias dispon├¡veis. Por isso o hash original ├® preservado nesta nota como registro hist├│rico, e o hash corrente ├® o que consta na tabela. A limita├º├úo est├í registrada como `L-06`.
++
++**Nota sobre os metadados das fontes (`F-13`).** `APDF.md`, `ORQUESTRADOR_APDF.md` e `PROMPTS_POR_FASE.md` n├úo declaram vers├úo, data, autor, cust├│dia ou autoridade aprovadora. Para as fontes externas, a ├║nica identidade verific├ível ├® o caminho e o SHA-256 do arquivo efetivamente lido; n├úo ├® poss├¡vel afirmar qual revis├úo do framework original elas representam. A limita├º├úo est├í registrada como `L-07` e refor├ºa ┬º16.2: nenhuma dessas fontes ├® tratada como vers├úo oficial do APDF.
++
+ ### A.2 Adapta├º├Áes registradas
+@@ -653,3 +705,3 @@ Altera├º├úo material deste padr├úo exige nova vers├úo, an├ílise de impacto, revi
+ | AD-09 | Handoff com 5 confirma├º├Áes e conte├║do m├¡nimo. | Alinhar `APDF.md` a `CTR-05` e `CTR-02`. | Fase 13 verific├ível. |
+-| AD-10 | TPM tratado como extens├úo condicional. | Evitar depend├¬ncia n├úo verificada. | Se├º├úo 13. |
++| AD-10 | TPM tratado como extens├úo condicional, ativada apenas por men├º├úo do usu├írio ou presen├ºa de `.tpm/`. | Evitar depend├¬ncia n├úo verificada. | Se├º├úo 13; nenhuma execu├º├úo impl├¡cita. |
+ | AD-11 | Instru├º├Áes por ferramenta mantidas como informativas. | `DEC-006`: capacidade n├úo testada. | Se├º├úo 14. |
+@@ -658,2 +710,3 @@ Altera├º├úo material deste padr├úo exige nova vers├úo, an├ílise de impacto, revi
+ | AD-14 | Nenhuma alega├º├úo de conformidade com a fonte original. | Fonte indispon├¡vel. | Se├º├úo 16. |
++| AD-15 | Ciclo de execu├º├úo incorporado a partir de `MET-CICLO-001` (`docs/01-metodologia/ciclo-apdf.md`), e n├úo das fontes candidatas. | O ciclo de 6 passos ├® metodologia local; `APDF.md` e `ORQUESTRADOR_APDF.md` n├úo o definem. | Se├º├úo 12; proveni├¬ncia expl├¡cita, sem atribui├º├úo ├ás fontes externas. |
+ 
+@@ -674 +727,49 @@ Altera├º├úo material deste padr├úo exige nova vers├úo, an├ílise de impacto, revi
+ | **Origem** | Marca que indica a fonte de uma informa├º├úo (`doc`, `usu├írio`, `inferido`, `pendente`). |
++
++---
++
++## Anexo C ÔÇö Corre├º├Áes desta revis├úo e propostas pendentes
++
++### C.1 Corre├º├Áes desta revis├úo (`1.0.1`)
++
++Estas corre├º├Áes foram tratadas nesta c├│pia. A coluna `Estado` distingue o que foi **aplicado** do que foi **verificado e j├í estava conforme**. Nenhuma delas altera a ordem das fases, os crit├®rios de aprova├º├úo dos gates, o conjunto de crit├®rios de aceite da se├º├úo 17 ou decis├Áes registradas.
++
++| ID | Achado | Corre├º├úo aplicada | Se├º├úo | Natureza | Estado |
++|---|---|---|---|---|---|
++| C-01 | F-01 ÔÇö `dependencies` ausente no checkpoint | Linha `dependencies` acrescentada; tabela convertida para quatro colunas com `Origem` e `Valores admitidos`; nota de que os 10 campos do `CTR-03` n├úo podem ser substitu├¡dos | ┬º8.4 | Corre├º├úo de consist├¬ncia | Aplicada |
++| C-02 | F-02 ÔÇö dois hashes do Anexo A n├úo reproduz├¡veis | Hashes de `apdf.md` e `ciclo-apdf.md` atualizados para os valores correntes; hash original preservado em nota hist├│rica; limita├º├úo `L-06` registrada | A.1, ┬º16.3 | Corre├º├úo editorial com efeito de governan├ºa | Aplicada |
++| C-03 | F-04 ÔÇö r├│tulos de a├º├úo heterog├¬neos | Regra de leitura das fichas explicitada em ┬º6: o segundo campo ├® sempre a a├º├úo da fase, o r├│tulo varia por natureza e `CA-APDF-01` verifica conte├║do, n├úo uniformidade | ┬º6 | Corre├º├úo editorial | Aplicada |
++| C-04 | F-05 ÔÇö ciclo sem linha de adapta├º├úo | `AD-15` registra a origem `MET-CICLO-001` e a aus├¬ncia do ciclo nas fontes candidatas | A.2 | Corre├º├úo de rastreabilidade | Aplicada |
++| C-05 | F-06 ÔÇö gate sem campo de justificativa expl├¡cito | Campo `justification` acrescentado ao conte├║do obrigat├│rio do gate, referido a `CTR-01`, requisito 5 | ┬º7.1 | Corre├º├úo de consist├¬ncia | Aplicada |
++| C-06 | F-07 ÔÇö loops e recupera├º├úo n├úo tratados | ┬º15.5 remete ao `CTR-03` e fixa: detectar repeti├º├úo sem progresso, interromper ao atingir limite, preservar evid├¬ncias, exigir nova hip├│tese e escalar sem recupera├º├úo segura | ┬º15.5 | Corre├º├úo de consist├¬ncia | Aplicada |
++| C-07 | F-09 ÔÇö handoff sem correspond├¬ncia e sem dois itens vinculantes | `depend├¬ncias` e `modelo de governan├ºa` inclu├¡dos em ┬º11.2; ┬º11.4 mapeia as 4 entregas de `APDF.md` e os 6 itens de `apdf.md` v0.1.0 para a lista consolidada | ┬º11.2, ┬º11.4 | Corre├º├úo de consist├¬ncia | Aplicada |
++| C-08 | F-10 ÔÇö Fase 12 n├úo declarava depend├¬ncias no pacote | Verificado: a Fase 12 da v1.0.0 j├í enuncia "depend├¬ncias" na a├º├úo; nenhuma altera├º├úo necess├íria | Fase 12 | Verifica├º├úo | J├í conforme ÔÇö sem altera├º├úo |
++| C-09 | F-11 ÔÇö Fase 13 n├úo listava o modelo de governan├ºa entre as entregas | Verificado: a Fase 13 da v1.0.0 j├í lista "modelo de governan├ºa" nas entregas | Fase 13 | Verifica├º├úo | J├í conforme ÔÇö sem altera├º├úo |
++| C-10 | F-13 ÔÇö fontes sem metadados e documento sem regra de vers├úo da candidata | Cabe├ºalho e banner de n├úo normatividade; nota de metadados das fontes; `L-07`; gatilho `.tpm/` explicitado em `AD-10`; regra de vers├úo da `1.0.1` em ┬º16.4 | Cabe├ºalho, A.1, A.2, ┬º16.3, ┬º16.4 | Corre├º├úo editorial com efeito de governan├ºa | Aplicada |
++| C-11 | F-14 ÔÇö `┬º7.3` listava `REABERTO` como transi├º├úo a partir de `PENDENTE`, contradizendo `┬º9` (D-03) e `┬º10` (`CF-03`), que reabrem gate j├í decidido | `┬º7.3` reescrito: `PENDENTE` transita para `APROVADO` ou `REJEITADO`; `REABERTO` ├® a transi├º├úo de reabertura de gate decidido e retorna a `PENDENTE`; avan├ºo bloqueado enquanto `REABERTO` | ┬º7.3 | Corre├º├úo de consist├¬ncia | Aplicada |
++
++**Desvios de plano declarados.** (a) O plano inicial agrupava `F-13` e o controle de vers├úo em `C-09`; foram separados em `C-10` para manter rastreabilidade um-para-um. (b) `C-11` (`F-14`) n├úo estava no plano: foi identificado nesta revis├úo ao comparar ┬º7.3 com ┬º9 e ┬º10. Nenhum dos desvios altera o conte├║do das fontes nem o estado da baseline.
++
++**Achados n├úo confirmados.** `F-10` e `F-11` n├úo se confirmaram contra o texto vigente: na v1.0.0, a Fase 12 j├í enuncia "depend├¬ncias" e a Fase 13 j├í lista "modelo de governan├ºa" nas entregas. Os itens ficam registrados como verifica├º├Áes conclu├¡das, sem altera├º├úo de texto.
++
++**Crit├®rios de aceite e esta revis├úo.** A se├º├úo 17 n├úo foi alterada: `CA-APDF-01` a `CA-APDF-12` permanecem id├¬nticos ├á v1.0.0. `C-01` e `C-07` s├úo verific├íveis por `CA-APDF-07` e `CA-APDF-08`; `C-03` por `CA-APDF-01`; `C-02` e `C-10` por `CA-APDF-11`. `C-04`, `C-05`, `C-06` e `C-11` s├úo verific├íveis contra `CTR-01` e `CTR-03`, n├úo contra crit├®rio pr├│prio, porque acrescentar crit├®rios alteraria o conjunto aprovado; se o propriet├írio quiser crit├®rios dedicados, isso exige decis├úo separada.
++
++### C.2 Propostas n├úo aplicadas ÔÇö dependem de decis├úo humana
++
++Estas propostas **n├úo** foram incorporadas. Aplic├í-las alteraria significado normativo ou exigiria escolha entre alternativas leg├¡timas; por isso ficam isoladas. Os identificadores s├úo `PROP-01` a `PROP-03` para n├úo colidirem com os princ├¡pios `P-01` a `P-12` da se├º├úo 3; em registros anteriores desta rodada foram citados como `P-01` a `P-03`.
++
++| ID | Achado | Proposta | Bloqueio | Alternativas |
++|---|---|---|---|---|
++| PROP-01 | F-03 ÔÇö pergunta de reancoragem antes de cada gate n├úo textualizada | Acrescentar pergunta bloqueante em ┬º7.2 ou como `RG-01.d`: "esta a├º├úo ainda pertence ao artefato aprovado desta fase?" | `DH-12` | (a) acrescentar o texto; (b) declarar coberta pelo checkpoint ┬º8.4 e reescrever o crit├®rio `C-07` do relat├│rio de rastreabilidade que a exige |
++| PROP-02 | F-08 ÔÇö registro expl├¡cito das quatro respostas iniciais n├úo obrigat├│rio por frase pr├│pria | Acrescentar campo ou frase que exija registrar as quatro respostas em ┬º15.1/┬º15.4 | Decis├úo de m├®rito | (a) campo dedicado; (b) frase de obriga├º├úo sem novo campo |
++| PROP-03 | F-12 ÔÇö limite de 3 perguntas por rodada (`AD-13`, ┬º4.2) versus quatro perguntas iniciais obrigat├│rias (┬º4.1) | Clarificar se as quatro perguntas iniciais contam no limite de tr├¬s por rodada | Decis├úo de m├®rito (sem `DH` atribu├¡do) | (a) exce├º├úo expl├¡cita para a abertura; (b) aplicar o limite tamb├®m ├á abertura, em duas rodadas; (c) elevar o limite na abertura |
++| B-01 | D-15 do relat├│rio de rastreabilidade ÔÇö parecer `REV-APDF-PROP-001` com cita├º├Áes imprecisas | Errata, adendo ou marca de "hist├│rico ÔÇö n├úo usar como parecer vigente" | `DH-11` | (a) errata; (b) nova vers├úo; (c) marca de retirada |
++
++**Nota sobre `PROP-01`.** A exig├¬ncia de "pergunta de reancoragem" vem do crit├®rio `C-07` do relat├│rio `temp/resultado-DEEPSEEK-apdf-rastreabilidade-v2.md`, n├úo de fonte normativa do N├║cleo. Por isso n├úo foi aplicada automaticamente: sem decis├úo, seria mudan├ºa de m├®todo disfar├ºada de corre├º├úo editorial.
++
++### C.3 Regra de preced├¬ncia desta c├│pia
++
++1. `docs/01-metodologia/APDF_V01.md` v1.0.0 permanece `APPROVED` e vigente.
++2. Esta c├│pia `1.0.1` ├® candidata; n├úo ├® baseline e n├úo pode ser citada como norma.
++3. Aprovada a `1.0.1`, ela substitui a `1.0.0` por decis├úo registrada, com atualiza├º├úo de manifesto, `CHANGELOG.md` e `estado-atual.md`.
++4. `PROP-01` a `PROP-03` e `B-01` s├│ entram em vers├úo futura ap├│s decis├úo pr├│pria, registrada.

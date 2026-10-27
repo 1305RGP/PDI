@@ -1,0 +1,214 @@
+diff --git "a/temp\\_BACKUP_APDF_V01_v100_HEAD.md" "b/docs\\01-metodologia\\APDF_V01.md"
+index a05e49d..761d9aa 100644
+--- "a/temp\\_BACKUP_APDF_V01_v100_HEAD.md"
++++ "b/docs\\01-metodologia\\APDF_V01.md"
+@@ -4,9 +4,9 @@
+ **Tipo:** Metodologia de Descoberta e Preparação (Padrão)  
+-**Versão:** 1.0.0 (APDF_V01)  
+-**Estado:** APPROVED — designado padrão em DEC-007 (2026-10-26).  
++**Versão:** 1.0.1 (APDF_V01)  
++**Estado:** APPROVED — patch corretivo promovido em DEC-009 (2026-10-27).  
+ **Proprietário:** Proprietário humano do Núcleo (designação nominal pendente conforme GOV-AUTH-001)  
+ **Escopo:** Descoberta, decisão, congelamento arquitetural e handoff para engenharia em projetos que adotarem o Núcleo Central de Engenharia.  
+-**Data:** 2026-10-26  
++**Data:** 2026-10-27  
+ **Dependências:** `docs/00-governanca/norma-central.md`, `docs/00-governanca/hierarquia-documental.md`, `docs/00-governanca/matriz-de-autoridade.md`, `docs/01-metodologia/anti-surto.md`, `docs/02-contratos/contrato-01-governanca.md` a `docs/02-contratos/contrato-05-inicializacao.md`.  
+-**Histórico de aprovação:** DEC-007 (2026-10-26). Consolida `MET-APDF-001` v0.1.0 (DRAFT, agora `SUPERSEDED`) e as fontes candidatas externas `APDF.md` e `ORQUESTRADOR_APDF.md`.
++**Histórico de aprovação:** DEC-007 (2026-10-26) aprovou a v1.0.0. DEC-009 (2026-10-27) homologou o Gate G0 e aprovou a v1.0.1 como patch corretivo (C-01 a C-11) com inclusão de dependencies em §8.4 (CTR-03), detalhamento de campos nucleares em §6 e modelagem de REABERTO como estado persistente em §7.3.  
+ 
+@@ -155,2 +155,4 @@ Regras do fluxo:
+ 
++**Regra de leitura das fichas.** Cada ficha estrutura-se em torno de quatro campos nucleares: pergunta central, ação da fase, artefatos e gate (na fase 13, denominado gate final). O rótulo do segundo campo varia conforme a natureza da fase — `Elicitar` (01–08, 10), `Formalizar` (09), `Definir` (11), `Empacotar` (12), `Entregar` (13) — nomeando a ação executiva predominante. Algumas fichas contêm blocos complementares opcionais de notas contextuais (`Nota Anti-Surto`, `Nota Arquitetura`, etc.) ou de confirmação explícita de requisitos (fase 13). O critério `CA-APDF-01` afere a presença obrigatória e a completude do núcleo de quatro elementos em cada uma das 13 fases, sem impor rigidez contra notas contextuais acessórias.
++
+ ### Fase 01 — Product Discovery
+@@ -317,2 +319,3 @@ Um gate é uma decisão registrada, não uma mensagem de "ok".
+ | `decision` | `APROVADO`, `REJEITADO` ou `REABERTO`. |
++| `justification` | Justificativa da decisão, referida ao artefato e à versão (`CTR-01`, requisito 5). |
+ | `conditions` | Condições vinculadas à aprovação, se houver. |
+@@ -332,3 +335,11 @@ Um gate é uma decisão registrada, não uma mensagem de "ok".
+ 
+-`PENDENTE` → `APROVADO` | `REJEITADO` | `REABERTO`.
++Diagrama de ciclo de vida e transições:
++
++`PENDENTE` → `APROVADO` | `REJEITADO`  
++(`APROVADO` | `REJEITADO`) → `REABERTO` → `APROVADO` | `REJEITADO`
++
++- **`PENDENTE`:** Estado inicial de abertura do gate enquanto os artefatos da fase são elaborados.
++- **`APROVADO`:** O gate foi formalmente homologado pela autoridade competente; avanço liberado para a fase subsequente.
++- **`REJEITADO`:** A entrega foi reprovada; a fase permanece aberta e o avanço segue bloqueado.
++- **`REABERTO`:** Estado persistente e bloqueante. Um gate previamente decidido (`APROVADO` ou `REJEITADO`) transita formalmente para `REABERTO` quando ocorre alteração material de artefato pós-aprovação (regra §7.2), solicitação formal de reabertura (seção 9, opção D-03) ou reavaliação de conformidade (seção 10, `CF-03`). Enquanto o gate permanecer em `REABERTO`, o avanço à fase seguinte é estritamente bloqueado. A saída do estado `REABERTO` dá-se exclusivamente por nova deliberação formal registrada de `APROVADO` ou `REJEITADO`.
+ 
+@@ -370,20 +381,23 @@ Antes de ação relevante, registrar:
+ 
+-| Campo | Obrigatório | Origem |
+-|---|---|---|
+-| `task_id` | Sim | CTR-03 |
+-| `objective` | Sim | CTR-03 |
+-| `apdf_phase` | Sim | CTR-03 |
+-| `approved_baseline` | Sim | CTR-03 |
+-| `allowed_actions` | Sim | CTR-03 |
+-| `prohibited_actions` | Sim | CTR-03 |
+-| `acceptance_criteria` | Sim | CTR-03 |
+-| `execution_state` | Sim | CTR-03 |
+-| `evidence_refs` | Sim | CTR-03 |
+-| `scope_classification` | Sim | `DENTRO`, `ESCLARECIMENTO`, `CORRECAO`, `EXPANSAO` |
+-| `trigger` | Quando aplicável | T-01 a T-10 |
+-| `impact` | Quando `EXPANSAO` | Descrição do impacto |
+-| `affected_artifacts` | Quando `EXPANSAO` | Lista de artefatos |
+-| `proposed_option` | Quando `EXPANSAO` | `DESCARTAR`, `REGISTRAR`, `REABRIR` |
+-| `authorizer` | Quando `REABRIR` | Autoridade que aprovou |
+-| `timestamp` | Sim | Data e hora do registro |
++| Campo | Obrigatório | Origem | Valores admitidos |
++|---|---|---|---|
++| `task_id` | Sim | CTR-03 | — |
++| `objective` | Sim | CTR-03 | — |
++| `apdf_phase` | Sim | CTR-03 | — |
++| `approved_baseline` | Sim | CTR-03 | — |
++| `allowed_actions` | Sim | CTR-03 | — |
++| `prohibited_actions` | Sim | CTR-03 | — |
++| `acceptance_criteria` | Sim | CTR-03 | — |
++| `dependencies` | Sim | CTR-03 | — |
++| `execution_state` | Sim | CTR-03 | estados definidos no `CTR-03` |
++| `evidence_refs` | Sim | CTR-03 | — |
++| `scope_classification` | Sim | Extensão local (`APDF_V01`) | `DENTRO`, `ESCLARECIMENTO`, `CORRECAO`, `EXPANSAO` |
++| `trigger` | Quando aplicável | Extensão local | `T-01` a `T-10` |
++| `impact` | Quando `EXPANSAO` | Extensão local | descrição do impacto |
++| `affected_artifacts` | Quando `EXPANSAO` | Extensão local | lista de artefatos |
++| `proposed_option` | Quando `EXPANSAO` | Extensão local | `DESCARTAR`, `REGISTRAR`, `REABRIR` |
++| `authorizer` | Quando `REABRIR` | Extensão local | autoridade que aprovou |
++| `timestamp` | Sim | Extensão local | data e hora do registro |
++
++A coluna `Origem` identifica a fonte normativa do campo; a coluna `Valores admitidos` registra o domínio de valores, quando fechado. Os dez primeiros campos são os do `CTR-03` e não podem ser renomeados, omitidos ou substituídos; os demais são extensão local deste padrão e não alteram o contrato.
+ 
+@@ -463,2 +477,3 @@ Qualquer "não" mantém a Fase 13 aberta.
+ - baseline aprovada e versão;
++- dependências entre pacotes e de ambiente (`CTR-03`);
+ - ADR Registry e Architecture Baseline;
+@@ -467,2 +482,3 @@ Qualquer "não" mantém a Fase 13 aberta.
+ - critérios de aceite e Caderno de Testes;
++- modelo de governança e quality gates (Fase 11);
+ - riscos, mitigações e riscos aceitos;
+@@ -473,2 +489,4 @@ Qualquer "não" mantém a Fase 13 aberta.
+ 
++A lista acima é a consolidação de duas origens distintas; a correspondência está em §11.4. Inclusões sem origem direta nas duas listas — questões abertas, referências de evidência e próximo passo autorizado — são extensão local exigida por `CTR-01` e `CTR-05`.
++
+ ### 11.3 Limite do handoff
+@@ -477,2 +495,20 @@ Qualquer "não" mantém a Fase 13 aberta.
+ 
++### 11.4 Correspondência com as listas de origem
++
++| Origem | Item de origem | Onde consta em §11.2 |
++|---|---|---|
++| `APDF.md`, Fase 13 | Arquitetura completa | baseline aprovada e versão; ADR Registry e Architecture Baseline |
++| `APDF.md`, Fase 13 | Roadmap com waves | roadmap, waves, epics e features |
++| `APDF.md`, Fase 13 | Packages prontos | pacotes de implementação por wave |
++| `APDF.md`, Fase 13 | Modelo de governança | modelo de governança e quality gates |
++| `apdf.md` v0.1.0, §4 | Baseline | baseline aprovada e versão |
++| `apdf.md` v0.1.0, §4 | Dependências | dependências entre pacotes e de ambiente |
++| `apdf.md` v0.1.0, §4 | Critérios de aceite | critérios de aceite e Caderno de Testes |
++| `apdf.md` v0.1.0, §4 | Caderno de Testes | critérios de aceite e Caderno de Testes |
++| `apdf.md` v0.1.0, §4 | Riscos | riscos, mitigações e riscos aceitos |
++| `apdf.md` v0.1.0, §4 | Permissões | permissões e restrições de execução |
++| Extensão local (`CTR-01`, `CTR-05`) | — | questões abertas e responsáveis; referências de evidência; próximo passo autorizado |
++
++**Regra de leitura:** a tabela mapeia a origem, não a exclusividade. Um item de §11.2 pode satisfazer mais de uma origem (por exemplo, "critérios de aceite e Caderno de Testes" cobre dois itens da baseline anterior). Nenhum item das duas listas de origem ficou sem destino.
++
+ ---
+@@ -572,2 +608,14 @@ Cada fase registra: identificador, versão, artefatos, fontes, decisões, quest
+ 
++### 15.5 Loops e recuperação
++
++O `CTR-03` (seção "Loops e recuperação") vincula a condução a detectar repetição sem progresso, reaplicação da mesma correção sem nova hipótese, oscilação, regressão e consumo anormal de recursos. Este padrão não redefine a regra: aplica-a.
++
++- Limites de tempo, iterações, tokens e chamadas são configuráveis por tarefa e por risco; o valor concreto pertence ao contexto operacional (§15.2) e à configuração do harness, não a este documento.
++- Ao atingir o limite: **interromper**, salvar estado, diffs, logs e evidências, e registrar tentativas e resultados.
++- Nova tentativa exige hipótese diferente e justificada.
++- Sem recuperação segura, escalar para humano.
++- Estado `BLOCKED` ou interrompido não pode ser reportado como concluído (`CA-03-07`).
++
++A interrupção não revoga o gate em curso nem autoriza mudança de escopo; se a falha revelar desvio, aplica-se a seção 8.
++
+ ---
+@@ -599,2 +647,4 @@ Cada fase registra: identificador, versão, artefatos, fontes, decisões, quest
+ | L-05 | Revisão independente deste padrão pendente. | Aprovação é do proprietário humano, sem segundo revisor. |
++| L-06 | Hashes de `apdf.md` e `ciclo-apdf.md` registrados na v1.0.0 não são reproduzíveis. | Origem exata da divergência não demonstrável; hashes correntes registrados no Anexo A. |
++| L-07 | Fontes candidatas sem versão, data, autor, custódia ou autoridade declaradas. | Revisão do framework original não identificável; proveniência limitada a caminho e hash. |
+ 
+@@ -604,2 +654,4 @@ Alteração material deste padrão exige nova versão, análise de impacto, revi
+ 
++A versão `1.0.1` é um **patch corretivo** promovido por `DEC-009`: não altera fases, gates, sequência, critérios de handoff nem decisões registradas; corrige exatidão, completude e rastreabilidade (§8.4 com CTR-03, §6, §7.3 e proveniência de hashes). Correções que alterem significado normativo (`PROP-01` a `PROP-03`) estão isoladas no Anexo C e exigem decisão própria antes de qualquer incorporação.
++
+ ---
+@@ -633,5 +685,5 @@ Alteração material deste padrão exige nova versão, análise de impacto, revi
+ | ORQUESTRADOR_APDF.md | `E:\documentos\projetos\ORQUESTRADOR_APDF.md` | `6CAD6D1C9CC11606AECF25A9C26B720D2679D98F4E893B5E290833D10013FD27` | Modo document-aware, protocolo de 6 passos, limite de 3 perguntas, marcação de origem, estado interno, estrutura de repositório. |
+-| apdf.md (v0.1.0) | `docs/01-metodologia/apdf.md` | `DB5FBF1EC16C329EB8C8E0435EB317BBD7AB2D460539B847D08DE489DA28CB15` | Estrutura local, proibição de conformidade, lista de fases. |
++| apdf.md (v0.1.0, `SUPERSEDED`) | `docs/01-metodologia/apdf.md` | `7E0E97E99BBE444F32C6A486F0294EE121B89C829E5B7DE675DE48E3D1B1D8A5` | Estrutura local, proibição de conformidade, lista de fases. |
+ | anti-surto.md | `docs/01-metodologia/anti-surto.md` | `E8D6DD8BE893E82C6281B46F4E2B1DA71C2BAFB0354B179A5B4B6586C2BBB7F8` | Anti-Surto e três opções. |
+-| ciclo-apdf.md | `docs/01-metodologia/ciclo-apdf.md` | `75CF2E28E9579463A7F2F1210DC37A4D0FF0D90BAE257E9FE023E8704259E612` | Ciclo de 6 passos. |
++| ciclo-apdf.md | `docs/01-metodologia/ciclo-apdf.md` | `B08F9B0C014A67F96330F7DE48BFBD5AE89A4200FB2B75FDBF11A2EA05C5416E` | Ciclo de 6 passos. |
+ | CTR-03 | `docs/02-contratos/contrato-03-harness.md` | `70BA80E3CEAC6A82DA417ACA03930FC1E6A5B9369906F6909ECA850F1C8C28F9` | Contexto mínimo, estados, loops. |
+@@ -640,2 +692,6 @@ Alteração material deste padrão exige nova versão, análise de impacto, revi
+ 
++**Nota sobre os hashes (`F-02`).** Os valores acima foram recalculados e verificados sobre os arquivos efetivamente existentes na baseline atual. A versão 1.0.0 registrava, para `apdf.md` e `ciclo-apdf.md`, os hashes `DB5FBF1EC16C329EB8C8E0435EB317BBD7AB2D460539B847D08DE489DA28CB15` e `75CF2E28E9579463A7F2F1210DC37A4D0FF0D90BAE257E9FE023E8704259E612`, os quais divergiam dos arquivos físicos desde a sua autoria inicial em `9f85961`. Os hashes corretos foram restabelecidos por recálculo criptográfico direto nesta versão 1.0.1. A limitação histórica permanece catalogada como `L-06`.
++
++**Nota sobre os metadados das fontes (`F-13`).** `APDF.md`, `ORQUESTRADOR_APDF.md` e `PROMPTS_POR_FASE.md` não declaram versão, data, autor, custódia ou autoridade aprovadora. Para as fontes externas, a única identidade verificável é o caminho e o SHA-256 do arquivo efetivamente lido; não é possível afirmar qual revisão do framework original elas representam. A limitação está registrada como `L-07` e reforça §16.2: nenhuma dessas fontes é tratada como versão oficial do APDF.
++
+ ### A.2 Adaptações registradas
+@@ -653,3 +709,3 @@ Alteração material deste padrão exige nova versão, análise de impacto, revi
+ | AD-09 | Handoff com 5 confirmações e conteúdo mínimo. | Alinhar `APDF.md` a `CTR-05` e `CTR-02`. | Fase 13 verificável. |
+-| AD-10 | TPM tratado como extensão condicional. | Evitar dependência não verificada. | Seção 13. |
++| AD-10 | TPM tratado como extensão condicional, ativada apenas por menção do usuário ou presença de `.tpm/`. | Evitar dependência não verificada. | Seção 13; nenhuma execução implícita. |
+ | AD-11 | Instruções por ferramenta mantidas como informativas. | `DEC-006`: capacidade não testada. | Seção 14. |
+@@ -658,2 +714,3 @@ Alteração material deste padrão exige nova versão, análise de impacto, revi
+ | AD-14 | Nenhuma alegação de conformidade com a fonte original. | Fonte indisponível. | Seção 16. |
++| AD-15 | Ciclo de execução incorporado a partir de `MET-CICLO-001` (`docs/01-metodologia/ciclo-apdf.md`), e não das fontes candidatas. | O ciclo de 6 passos é metodologia local; `APDF.md` e `ORQUESTRADOR_APDF.md` não o definem. | Seção 12; proveniência explícita, sem atribuição às fontes externas. |
+ 
+@@ -674 +731,48 @@ Alteração material deste padrão exige nova versão, análise de impacto, revi
+ | **Origem** | Marca que indica a fonte de uma informação (`doc`, `usuário`, `inferido`, `pendente`). |
++
++---
++
++## Anexo C — Correções desta revisão e propostas pendentes
++
++### C.1 Correções desta revisão (`1.0.1`)
++
++Estas correções foram tratadas nesta cópia. A coluna `Estado` distingue o que foi **aplicado** do que foi **verificado e já estava conforme**. Nenhuma delas altera a ordem das fases, os critérios de aprovação dos gates, o conjunto de critérios de aceite da seção 17 ou decisões registradas.
++
++| ID | Achado | Correção aplicada | Seção | Natureza | Estado |
++|---|---|---|---|---|---|
++| C-01 | F-01 — `dependencies` ausente no checkpoint | Linha `dependencies` acrescentada; tabela convertida para quatro colunas com `Origem` e `Valores admitidos`; nota de que os 10 campos do `CTR-03` não podem ser substituídos | §8.4 | Correção de consistência | Aplicada |
++| C-02 | F-02 — dois hashes do Anexo A não reproduzíveis | Hashes de `apdf.md` e `ciclo-apdf.md` atualizados para os valores correntes; hash original preservado em nota histórica; limitação `L-06` registrada | A.1, §16.3 | Correção editorial com efeito de governança | Aplicada |
++| C-03 | F-04 — rótulos de ação heterogêneos | Regra de leitura das fichas explicitada em §6: o segundo campo é sempre a ação da fase, o rótulo varia por natureza e `CA-APDF-01` verifica conteúdo, não uniformidade | §6 | Correção editorial | Aplicada |
++| C-04 | F-05 — ciclo sem linha de adaptação | `AD-15` registra a origem `MET-CICLO-001` e a ausência do ciclo nas fontes candidatas | A.2 | Correção de rastreabilidade | Aplicada |
++| C-05 | F-06 — gate sem campo de justificativa explícito | Campo `justification` acrescentado ao conteúdo obrigatório do gate, referido a `CTR-01`, requisito 5 | §7.1 | Correção de consistência | Aplicada |
++| C-06 | F-07 — loops e recuperação não tratados | §15.5 remete ao `CTR-03` e fixa: detectar repetição sem progresso, interromper ao atingir limite, preservar evidências, exigir nova hipótese e escalar sem recuperação segura | §15.5 | Correção de consistência | Aplicada |
++| C-07 | F-09 — handoff sem correspondência e sem dois itens vinculantes | `dependências` e `modelo de governança` incluídos em §11.2; §11.4 mapeia as 4 entregas de `APDF.md` e os 6 itens de `apdf.md` v0.1.0 para a lista consolidada | §11.2, §11.4 | Correção de consistência | Aplicada |
++| C-08 | F-10 — Fase 12 não declarava dependências no pacote | Verificado: a Fase 12 da v1.0.0 já enuncia "dependências" na ação; nenhuma alteração necessária | Fase 12 | Verificação | Já conforme — sem alteração |
++| C-09 | F-11 — Fase 13 não listava o modelo de governança entre as entregas | Verificado: a Fase 13 da v1.0.0 já lista "modelo de governança" nas entregas | Fase 13 | Verificação | Já conforme — sem alteração |
++| C-10 | F-13 — fontes sem metadados e documento sem regra de versão da candidata | Cabeçalho e banner de não normatividade; nota de metadados das fontes; `L-07`; gatilho `.tpm/` explicitado em `AD-10`; regra de versão da `1.0.1` em §16.4 | Cabeçalho, A.1, A.2, §16.3, §16.4 | Correção editorial com efeito de governança | Aplicada |
++| C-11 | F-14 — `§7.3` listava `REABERTO` como transição a partir de `PENDENTE`, contradizendo `§9` (D-03) e `§10` (`CF-03`), que reabrem gate já decidido | `§7.3` reescrito: `PENDENTE` transita para `APROVADO` ou `REJEITADO`; `REABERTO` é a transição de reabertura de gate decidido e retorna a `PENDENTE`; avanço bloqueado enquanto `REABERTO` | §7.3 | Correção de consistência | Aplicada |
++
++**Desvios de plano declarados.** (a) O plano inicial agrupava `F-13` e o controle de versão em `C-09`; foram separados em `C-10` para manter rastreabilidade um-para-um. (b) `C-11` (`F-14`) não estava no plano: foi identificado nesta revisão ao comparar §7.3 com §9 e §10. Nenhum dos desvios altera o conteúdo das fontes nem o estado da baseline.
++
++**Achados não confirmados.** `F-10` e `F-11` não se confirmaram contra o texto vigente: na v1.0.0, a Fase 12 já enuncia "dependências" e a Fase 13 já lista "modelo de governança" nas entregas. Os itens ficam registrados como verificações concluídas, sem alteração de texto.
++
++**Critérios de aceite e esta revisão.** A seção 17 não foi alterada: `CA-APDF-01` a `CA-APDF-12` permanecem idênticos à v1.0.0. `C-01` e `C-07` são verificáveis por `CA-APDF-07` e `CA-APDF-08`; `C-03` por `CA-APDF-01`; `C-02` e `C-10` por `CA-APDF-11`. `C-04`, `C-05`, `C-06` e `C-11` são verificáveis contra `CTR-01` e `CTR-03`, não contra critério próprio, porque acrescentar critérios alteraria o conjunto aprovado; se o proprietário quiser critérios dedicados, isso exige decisão separada.
++
++### C.2 Propostas não aplicadas — dependem de decisão humana
++
++Estas propostas **não** foram incorporadas. Aplicá-las alteraria significado normativo ou exigiria escolha entre alternativas legítimas; por isso ficam isoladas. Os identificadores são `PROP-01` a `PROP-03` para não colidirem com os princípios `P-01` a `P-12` da seção 3; em registros anteriores desta rodada foram citados como `P-01` a `P-03`.
++
++| ID | Achado | Proposta | Bloqueio | Alternativas |
++|---|---|---|---|---|
++| PROP-01 | F-03 — pergunta de reancoragem antes de cada gate não textualizada | Acrescentar pergunta bloqueante em §7.2 ou como `RG-01.d`: "esta ação ainda pertence ao artefato aprovado desta fase?" | Decisão futura | (a) acrescentar o texto; (b) declarar coberta pelo checkpoint §8.4 e reescrever o critério `C-07` do relatório de rastreabilidade que a exige |
++| PROP-02 | F-08 — registro explícito das quatro respostas iniciais não obrigatório por frase própria | Acrescentar campo ou frase que exija registrar as quatro respostas em §15.1/§15.4 | Decisão futura | (a) campo dedicado; (b) frase de obrigação sem novo campo |
++| PROP-03 | F-12 — limite de 3 perguntas por rodada (`AD-13`, §4.2) versus quatro perguntas iniciais obrigatórias (§4.1) | Clarificar se as quatro perguntas iniciais contam no limite de três por rodada | Decisão futura | (a) exceção explícita para a abertura; (b) aplicar o limite também à abertura, em duas rodadas; (c) elevar o limite na abertura |
++| B-01 | D-15 do relatório de rastreabilidade — parecer `REV-APDF-PROP-001` com citações imprecisas | Errata, adendo ou marca de "histórico — não usar como parecer vigente" | Decisão futura | (a) errata; (b) nova versão; (c) marca de retirada |
++
++**Nota sobre `PROP-01`.** A exigência de "pergunta de reancoragem" vem do critério `C-07` do relatório `temp/resultado-DEEPSEEK-apdf-rastreabilidade-v2.md`, não de fonte normativa do Núcleo. Por isso não foi aplicada automaticamente: sem decisão, seria mudança de método disfarçada de correção editorial.
++
++### C.3 Regra de precedência e vigência
++
++1. `docs/01-metodologia/APDF_V01.md` v1.0.1 é a versão normativa vigente promovida por `DEC-009` (2026-10-27).
++2. Substitui integralmente a versão `1.0.0` aprovada em `DEC-007`.
++3. Propostas do Anexo C (`PROP-01` a `PROP-03`, `B-01`) permanecem não normativas aguardando deliberação futura.
