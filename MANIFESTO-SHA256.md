@@ -15,7 +15,7 @@
 | `docs/00-governanca/hierarquia-documental.md` | `4b9a23cdc8bc3352a5542ac2b2dca61bc068bf06427e9ee5f99f648ce43f10c2` |
 | `docs/00-governanca/matriz-de-autoridade.md` | `a8119c2f7926d565987caa9f524d69f3d46d77f46638c3260ea71a21c1c17af1` |
 | `docs/00-governanca/norma-central.md` | `915ea03bee86c14a06af2655a8dc35ba2e0a6959e449e41774a2587a5236dfdf` |
-| `docs/00-governanca/registro-de-decisoes.md` | `4a9b47b20ecd693538cf419201fe591602cb67861e472cf1102c89e0ca26988d` |
+| `docs/00-governanca/registro-de-decisoes.md` | `aa295ac8f60794064c47e6d9028b9e05aa44e21b3b9414e19690864f5750bf53` |
 | `docs/01-metodologia/APDF_V01.md` | `c0b5460c75d0d19c96fc30e693976db03c3b2f2b7e2f3907d8f32f2a63d58567` |
 | `docs/01-metodologia/anti-surto.md` | `e8d6dd8be893e82c6281b46f4e2b1da71c2bafb0354b179a5b4b6586c2bbb7f8` |
 | `docs/01-metodologia/apdf.md` | `7e0e97e99bbe444f32c6a486f0294ee121b89c829e5b7de675de48e3d1b1d8a5` |

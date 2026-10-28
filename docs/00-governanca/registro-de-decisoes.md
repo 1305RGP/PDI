@@ -183,6 +183,29 @@
 - **Artefatos afetados:** `docs/01-metodologia/APDF_V01.md`, `docs/00-governanca/registro-de-decisoes.md`, `README.md`, `CHANGELOG.md`, `MANIFESTO-SHA256.md`.
 - **Estado:** `APPROVED`.
 
+### Adendo à DEC-011 — Escopo da Promoção de Schemas e Testes e Ressalvas Remanescentes (SAN-G1-GOV-001)
+
+- **Contexto:** Em `df731c8`, foram incorporados 21 arquivos promovidos na etapa de encerramento do Gate G1: 5 schemas JSON em `specs/schemas/`, 5 schemas de contrato JSON em `specs/contratos/`, 10 fixtures JSON em `tests/fixtures/` e 1 catálogo de casos em `tests/contracts/catalogo-casos.md`. Todos os 21 arquivos foram verificados quanto à integridade SHA-256 contra o `MANIFESTO-SHA256.md` vigente (commit `9da4e2a`), com 21/21 conferentes. O manifesto foi estendido de 27 para 48 entradas no commit `9da4e2a` (saneamento documental).
+- **Decisão:** O Proprietário Humano cienciou-se, por instrução direta nesta sessão, do escopo da promoção executada em `df731c8` e das ressalvas remanescentes da DEC-011 listadas abaixo. Esta minuta complementa a DEC-011 sem alterar seu teor nem seu estado `APPROVED`.
+- **Ressalvas remanescentes da DEC-011 (cienciadas):**
+  - R1: Revisão independente do padrão continua pendente (`L-05`); esta decisão não a substitui.
+  - R2: Fonte original `APDF(1).md` permanece indisponível; nenhuma conformidade com ela é declarada (`L-01`).
+  - R3: Aprovação é do proprietário humano, por instrução direta na sessão, sem segundo revisor.
+  - R4: Numeração da baseline (`v0.3.0`) foi proposta pelo agente como progressão menor de `v0.2.1` e aguarda confirmação literal do proprietário; a substância da decisão é do proprietário, a forma é do agente.
+  - R5: `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra §8.4 e §11.2/§11.4, o que não equivale a declará-los satisfeitos: a verificação é ato próprio, com evidência vinculada à versão avaliada.
+  - R6: Leitura final do texto da `1.1.0` pelo proprietário permanece pendente; o estado `APPROVED` refere-se ao ato de promoção e ao conteúdo revisado nesta rodada.
+- **Decisões que dependem do proprietário:**
+  - D-03-01: Confirmação literal da numeração `v0.3.0` — pendente.
+  - D-03-02: Confirmação de leitura final do texto v1.1.0 — pendente.
+  - D-03-03: Autorização do validador Draft 2020-12 (`ajv-cli`) — pendente.
+  - D-03-04: Cienciamento das ressalvas R1 a R6 — pendente.
+  - DEC-HUM-05: Homologação do Gate G1 — bloqueada, aguarda sanamento das condições prévias acima.
+- **Escopo:** Complemento à DEC-011, governança e ciclo de vida do Núcleo Central de Engenharia (PDI).
+- **Responsável pela aprovação:** Proprietário Humano do Núcleo, por instrução direta na sessão (designação nominal pendente conforme GOV-AUTH-001).
+- **Data:** 2026-10-28.
+- **Artefatos afetados:** `docs/00-governanca/registro-de-decisoes.md` (este adendo).
+- **Estado:** `APPROVED` (por instrução direta do Proprietário Humano, cienciamento das ressalvas).
+
 ## Regra de Gestão de Decisões
 
 - Decisões em elaboração ou abertas devem ser registradas com estado `DRAFT` ou `PENDING_APPROVAL`.
