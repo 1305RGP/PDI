@@ -206,6 +206,35 @@
 - **Artefatos afetados:** `docs/00-governanca/registro-de-decisoes.md` (este adendo).
 - **Estado:** `APPROVED` (por instrução direta do Proprietário Humano, cienciamento das ressalvas).
 
+### Adendo à DEC-011 — Confirmação de Decisões do Proprietário e Homologação do Gate G1 (SAN-G1-GOV-002)
+
+- **Contexto:** Em sessão de 2026-10-28, o Proprietário Humano aprovou, por instrução direta, todas as decisões pendentes listadas no adendo anterior (SAN-G1-GOV-001): D-03-01, D-03-02, D-03-03, D-03-04 e DEC-HUM-05. A validação Draft 2020-12 foi executada com instância temporária do `ajv` via `npx` (sem instalação persistente), obtendo 10/10 PASS nos schemas comuns e validação estrutural dos 5 schemas de contrato. Os 15 critérios contratuais comportamentais permanecem em `NOT_RUN` e pertencem à Fase C.
+- **Decisão:** O Proprietário Humano:
+  1. **CONFIRMA** a numeração `v0.3.0` da baseline documental (D-03-01, opção [A]);
+  2. **CONFIRMA** a leitura final do texto da `APDF_V01` versão 1.1.0 (D-03-02, opção [A]);
+  3. **AUTORIZA** a execução do validador Draft 2020-12 (`npx --yes ajv-cli@5`) para os 10 schemas e 10 fixtures (D-03-03, opção [A]);
+  4. **CIÊNCIA-SE** das ressalvas R1 a R6 remanescentes da DEC-011 (D-03-04, opção [A]);
+  5. **HOMOLOGA** o Gate G1 e autoriza a entrada na Fase C (Ambiente Antigravity, Harness e Capacidade de Ferramentas), pois todas as condições prévias estão sanadas (DEC-HUM-05, opção [A]).
+- **Evidências de validação:**
+  - 10/10 PASS na validação Draft 2020-12 com `ajv` (schemas comuns vs fixtures);
+  - 21/21 SHA-256 conferentes nos arquivos de `specs/` e `tests/`;
+  - 48/48 SHA-256 conferentes no `MANIFESTO-SHA256.md`;
+  - 102 checks PASS nas suítes PowerShell (44 G1 + 58 contratos).
+- **Critérios de aceite do Gate G1:**
+  - CA-G1-01: ATENDIDO (sintaxe e integridade estrutural dos 10 schemas e 10 fixtures);
+  - CA-G1-02: ATENDIDO (cobertura formal dos Contratos 01 a 05);
+  - CA-G1-03: ATENDIDO (validação Draft 2020-12 executada com motor autorizado);
+  - CA-G1-04: ATENDIDO (cenários de teste negativos com rejeição comprovada);
+  - CA-G1-05: ATENDIDO (integridade da baseline v0.3.0 preservada);
+  - CA-G1-06: ATENDIDO (catalogação das correções diferidas, estabilidade da v1.0.1 mantida).
+- **Condições prévias para DEC-HUM-05:** Todas sanadas (D-03-01, D-03-02, D-03-03, D-03-04 aprovadas).
+- **Fase C:** Autorizada a entrada. Os 15 critérios contratuais comportamentais (`NOT_RUN`) pertencem à Fase C e serão executados nesta etapa.
+- **Escopo:** Complemento à DEC-011, governança e ciclo de vida do Núcleo Central de Engenharia (PDI).
+- **Responsável pela aprovação:** Proprietário Humano do Núcleo, por instrução direta na sessão (designação nominal pendente conforme GOV-AUTH-001).
+- **Data:** 2026-10-28.
+- **Artefatos afetados:** `docs/00-governanca/registro-de-decisoes.md` (este adendo).
+- **Estado:** `APPROVED` (por instrução direta do Proprietário Humano).
+
 ## Regra de Gestão de Decisões
 
 - Decisões em elaboração ou abertas devem ser registradas com estado `DRAFT` ou `PENDING_APPROVAL`.
