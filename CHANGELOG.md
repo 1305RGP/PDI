@@ -4,7 +4,7 @@
 **Tipo:** Registro de Mudanças  
 **Versão:** 0.3.0  
 **Estado:** APPROVED — ativo e controlado.  
-**Data:** 2026-10-27  
+**Data:** 2026-10-27
 
 ## [0.3.0] — 2026-10-27
 
@@ -15,9 +15,9 @@
 - **Correções editoriais de registro:** `C-12` ajusta a descrição de `C-10` no Anexo C.1 (o banner de não normatividade nunca existiu no arquivo publicado) e `C-13` estende a referência às propostas pendentes até `PROP-04`. Ambas incorporadas dentro da `1.1.0`, sem versão própria.
 - **Errata por adendo:** acréscimo de três adendos `ERR-DEC-009-010-001` ao final de `DEC-009` e de `DEC-010`, sem reescrita das decisões originais — reconciliando a descrição de conteúdo de `DEC-009` com o escopo efetivo fixado por `DEC-010` e registrando a leitura temporal da premissa de conformidade dos 27 artefatos.
 - **Lacunas:** `L-08` encerrada; `L-10` encerrada por `C-12`; `L-09` mantida como residual aceito. As lacunas `L-01` a `L-07` permanecem inalteradas.
-- **Escopo preservado:** seção 17 do `APDF_V01` byte-idêntica à da versão anterior (verificado nesta rodada: 18 linhas, SHA-256 `96BCA24677706533DFBE74C2EEBFAF7F585F56B42A2A6692380F1DAA910F9B34`); nenhum código de produto; nenhuma dependência instalada; nenhuma ferramenta externa executada.
-- Elevação da baseline documental do Núcleo para `v0.3.0`; `MANIFESTO-SHA256.md` recalculado para os 27 arquivos normativos.
-- Ressalvas: revisão independente pendente (`L-05`); leitura final do texto da `1.1.0` pelo proprietário pendente; numeração `v0.3.0` proposta pelo agente e pendente de confirmação literal; `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra a `1.1.0`, sem que isso os declare satisfeitos.
+- **Escopo preservado:** seção 17 do `APDF_V01` byte-idêntica à da versão anterior (verificado nesta rodada: 18 linhas, SHA-256 `96BCA24677706533DFBE74C2EEBFAF7F585F56B42A2A6692380F1DAA910F9B34`); nenhum código de produto; nenhuma dependência instalada; nenhuma ferramenta externa executada; 21 arquivos de `specs/` e `tests/` promovidos no commit `df731c8` (10 schemas JSON, 5 contratos schema JSON, 10 fixtures JSON, 1 catálogo de casos de teste) — validação formal Draft 2020-12 com motor oficial permanece `NOT_RUN` (pendente de aprovação humana para instalação do `ajv-cli`).
+- Elevação da baseline documental do Núcleo para `v0.3.0`; `MANIFESTO-SHA256.md` recalculado para os 27 arquivos normativos. Os 21 arquivos promovidos em `specs/` e `tests/` ainda não estão incluídos no manifesto (proposta de inclusão em anexo D-01).
+- Ressalvas: revisão independente pendente (`L-05`); leitura final do texto da `1.1.0` pelo proprietário pendente; numeração `v0.3.0` proposta pelo agente e pendente de confirmação literal; `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra a `1.1.0`, sem que isso os declare satisfeitos; Gate G1 em estado `READY_FOR_HUMAN_REVIEW`, não declarado como concluído; 15 critérios contratuais comportamentais (`NOT_RUN`) pertencem à Fase C.
 
 ## [0.2.1] — 2026-10-27
 
@@ -55,7 +55,7 @@
 - Correção dos caminhos na seção "Ordem de leitura" do `README.md`, tornando-os explícitos a partir da raiz e incluindo referências aos ADRs, ferramentas e evidências.
 - Padronização de metadados obrigatórios (ID, Tipo, Versão, Estado, Proprietário, Escopo, Data, Dependências, Histórico) em todos os documentos normativos, contratos e especificações, em conformidade com `GOV-DOC-001`.
 - Padronização dos enums de estado em `docs/00-governanca/registro-de-decisoes.md` (uso de `APPROVED`), mantendo decisões abertas protegidas com estados `DRAFT` ou `PENDING_APPROVAL`.
-- Definição da regra operacional transitória do APDF em `docs/01-metodologia/apdf.md`: permissão de uso como referência provisória de descoberta, identificação explícita como não homologado (`DRAFT`), e proibição expressa de alegações de conformidade integral antes da comparação com o documento-fonte aprovado.
+- Definição da regra operatória transitória do APDF em `docs/01-metodologia/apdf.md`: permissão de uso como referência provisória de descoberta, identificação explícita como não homologado (`DRAFT`), e proibição expressa de alegações de conformidade integral antes da comparação com o documento-fonte aprovado.
 - Atualização do manifesto de integridade criptográfica `MANIFESTO-SHA256.md`.
 
 ### Baseline Conceitual Inicial

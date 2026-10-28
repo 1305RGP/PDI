@@ -6,8 +6,8 @@
 **Estado:** APPROVED — conceitualmente; materialização documental inicial homologada no Gate G0; Fase B autorizada.  
 **Proprietário:** Proprietário humano do Núcleo (designação nominal pendente conforme GOV-AUTH-001)  
 **Escopo:** Núcleo Central de Engenharia e governança base do projeto PDI.  
-**Data:** 2026-10-27  
-**Histórico de aprovação:** v0.1.0 — aprovada conceitualmente em DEC-001 a DEC-006 (2026-10-26). v0.2.0 — incorpora DEC-007, que designa o `APDF_V01` como padrão metodológico (2026-10-26). v0.2.1 — incorpora DEC-008 (critérios de G0), DEC-009 (homologação do Gate G0, patch APDF_V01 v1.0.1 e autorização da Fase B) e DEC-010 (escopo do patch v1.0.1 e diferimento de cinco correções para a v1.1.0) (2026-10-27). v0.3.0 — incorpora DEC-011 (promoção do `APDF_V01` para a versão 1.1.0, encerramento da lacuna `L-08` e adendos de errata de DEC-009/DEC-010) (2026-10-27).  
+**Data:** 2026-10-28  
+**Histórico de aprovação:** v0.1.0 — aprovada conceitualmente em DEC-001 a DEC-006 (2026-10-26). v0.2.0 — incorpora DEC-007, que designa o `APDF_V01` como padrão metodológico (2026-10-26). v0.2.1 — incorpora DEC-008 (critérios de G0), DEC-009 (homologação do Gate G0, patch APDF_V01 v1.0.1 e autorização da Fase B) e DEC-010 (escopo do patch v1.0.1 e diferimento de cinco correções para a v1.1.0) (2026-10-27). v0.3.0 — incorpora DEC-011 (promoção do `APDF_V01` para a versão 1.1.0, encerramento da lacuna `L-08` e adendos de errata de DEC-009/DEC-010) e o commit `df731c8` de incorporação de 21 arquivos de `specs/` e `tests/` (10 schemas, 5 contratos schema, 10 fixtures, 1 catálogo de casos) do Gate G1 (2026-10-27).
 
 ## Objetivo
 
@@ -26,7 +26,7 @@ Estabelecer um núcleo reutilizável de governança, qualidade, rastreabilidade 
 ## Estado atual
 
 - Contratos conceitualmente aprovados: 01 a 05.
-- Metodologia de descoberta: padrão `APDF_V01` adotado em DEC-007, vigente na versão `1.1.0` (promovida em `DEC-011`); a versão `1.0.1` permanece apenas como histórico no commit `bc45753`. Detector Anti-Surto e integração TPM não implementados.
+- Metodologia de descoberta: padrão `APDF_V01` adotado em DEC-007, vigente na versão `1.1.0` (promovida em `DEC-011`, commit `df731c8`); a versão `1.0.1` permanece apenas como histórico no commit `bc45753`. Detector Anti-Surto e integração TPM não implementados.
 - Conteúdo da `1.1.0`: incorpora as cinco correções diferidas por `DEC-010` (`C-01`, `C-05`, `C-06`, `C-07`, `C-11`) e as correções editoriais de registro `C-12` e `C-13`; `REABERTO` é estado persistente (modelo (a)) e `PROP-04` foi decidida na alternativa (a), que preserva a seção 17. A lacuna `L-08` está encerrada.
 - Ressalvas em aberto no padrão: `L-09` mantida como residual aceito; `CA-APDF-07` e `CA-APDF-08` passam a ser verificáveis contra a `1.1.0`, sem que isso os declare satisfeitos; propostas `PROP-01` a `PROP-03` e `B-01` não normativas no Anexo C.3; revisão independente pendente (`L-05`); leitura final do texto da `1.1.0` pelo proprietário pendente.
 - Estrutura documental inicial: definida neste pacote.
@@ -51,4 +51,4 @@ Estabelecer um núcleo reutilizável de governança, qualidade, rastreabilidade 
 ## Próximo gate
 
 - **Gate G0 (Revisão da materialização documental):** CONCLUÍDO e homologado formalmente em DEC-009 (2026-10-27).
-- **Próximo gate ativo (Gate G1):** Validação técnica e executabilidade dos schemas formais e testes de conformidade da Fase B.
+- **Próximo gate ativo (Gate G1):** Validação técnica e executabilidade dos schemas formais e testes de conformidade da Fase B. Em estado `READY_FOR_HUMAN_REVIEW`, aguardando deliberação do proprietário humano. Não declarado como concluído. Os 21 arquivos de `specs/` e `tests/` foram promovidos no commit `df731c8`; a validação formal Draft 2020-12 com motor oficial permanece `NOT_RUN` (pendente de aprovação humana para instalação do `ajv-cli`).
